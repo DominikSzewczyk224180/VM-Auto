@@ -95,18 +95,18 @@ async function handleAddCar(e) {
         const result = await response.json();
 
         if (response.ok && result.success) {
-            showToast('✅ Samochód został dodany pomyślnie!', 'success');
+            showToast('Samochód został dodany pomyślnie!', 'success');
             e.target.reset();
             loadCars();
             
             // Switch to car list tab
             document.querySelector('[data-tab="car-list"]').click();
         } else {
-            showToast('❌ Błąd: ' + (result.error || 'Nie udało się dodać samochodu'), 'error');
+            showToast('Błąd: ' + (result.error || 'Nie udało się dodać samochodu'), 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        showToast('❌ Błąd połączenia z serwerem', 'error');
+        showToast('Błąd połączenia z serwerem', 'error');
     } finally {
         hideLoading();
     }
@@ -125,11 +125,11 @@ async function loadCars() {
             allCars = result.cars;
             displayCars(allCars);
         } else {
-            container.innerHTML = '<p class="loading">❌ Błąd podczas ładowania samochodów</p>';
+            container.innerHTML = '<p class="loading">Błąd podczas ładowania samochodów</p>';
         }
     } catch (error) {
         console.error('Error:', error);
-        container.innerHTML = '<p class="loading">❌ Błąd połączenia z serwerem</p>';
+        container.innerHTML = '<p class="loading">Błąd połączenia z serwerem</p>';
     }
 }
 
@@ -140,7 +140,7 @@ function displayCars(cars) {
     if (cars.length === 0) {
         container.innerHTML = `
             <div class="no-cars">
-                <h3>🚗 Brak samochodów</h3>
+                <h3>Brak samochodów</h3>
                 <p>Dodaj pierwszy samochód, aby zobaczyć go na liście</p>
             </div>
         `;
@@ -175,8 +175,8 @@ function displayCars(cars) {
             ` : ''}
             
             <div class="car-actions">
-                <button class="btn btn-edit" onclick="openEditModal('${car._id}')">✏️ Edytuj</button>
-                <button class="btn btn-danger" onclick="deleteCar('${car._id}')">🗑️ Usuń</button>
+                <button class="btn btn-edit" onclick="openEditModal('${car._id}')">Edytuj</button>
+                <button class="btn btn-danger" onclick="deleteCar('${car._id}')">Usuń</button>
             </div>
         </div>
     `).join('');
@@ -246,15 +246,15 @@ async function handleEditCar(e) {
         const result = await response.json();
 
         if (response.ok && result.success) {
-            showToast('✅ Samochód został zaktualizowany!', 'success');
+            showToast('Samochód został zaktualizowany!', 'success');
             closeEditModal();
             loadCars();
         } else {
-            showToast('❌ Błąd podczas aktualizacji', 'error');
+            showToast('Błąd podczas aktualizacji', 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        showToast('❌ Błąd połączenia z serwerem', 'error');
+        showToast('Błąd połączenia z serwerem', 'error');
     } finally {
         hideLoading();
     }
@@ -276,14 +276,14 @@ async function deleteCar(carId) {
         const result = await response.json();
 
         if (response.ok && result.success) {
-            showToast('✅ Samochód został usunięty', 'success');
+            showToast('Samochód został usunięty', 'success');
             loadCars();
         } else {
-            showToast('❌ Błąd podczas usuwania', 'error');
+            showToast('Błąd podczas usuwania', 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        showToast('❌ Błąd połączenia z serwerem', 'error');
+        showToast('Błąd połączenia z serwerem', 'error');
     } finally {
         hideLoading();
     }
