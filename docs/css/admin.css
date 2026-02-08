@@ -23,7 +23,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: var(--bg-light);
+    background: #FFFFFF;
     min-height: 100vh;
     padding: 20px;
     color: var(--text-dark);
