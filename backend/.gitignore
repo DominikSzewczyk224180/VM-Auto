@@ -1,0 +1,42 @@
+# =========================
+# Pliki środowiskowe
+# =========================
+.env*
+*.env
+
+# =========================
+# Python / Backend
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.log
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# =========================
+# Node / Frontend (jeśli używasz npm / node)
+# =========================
+node_modules/
+dist/
+build/
+
+# =========================
+# Systemowe / IDE
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# =========================
+# Inne pliki tymczasowe
+# =========================
+*.bak
+*.swp
