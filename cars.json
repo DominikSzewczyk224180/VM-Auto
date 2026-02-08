@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "title": "Hyundai IONIQ 1.6 Platinum",
+        "year": "2022",
+        "mileage": "89 000 km",
+        "fuel": "Hybrydowy",
+        "price": "68 000 zł",
+        "category": "hybrid",
+        "image": "images/hyundai-ioniq.png",
+        "link": "https://autoplac.pl/oferta/hyundai/ioniq/1-6-2022r-platinium-4l-na-100km-android-led-grzfotele-kierownica-AG2qq4P7HNyH6",
+        "description": "4L na 100km, Android, LED, Grzane fotele i kierownica"
+    },
+    {
+        "id": 2,
+        "title": "Dethleffs JUST GO MAX",
+        "year": "2024",
+        "mileage": "21 000 km",
+        "fuel": "Diesel",
+        "price": "236 000 zł",
+        "category": "camper",
+        "image": "images/dethleffs-camper.png",
+        "link": "https://autoplac.pl/oferta/dethleffs/just-go/2024r-max-wyposazony-klimadometic-solar-tv-android-sat-sog-AGERRzNJIlTr",
+        "description": "Wyposażony: Klima Dometic, Solar, TV, Android, SAT, SOG"
+    },
+    {
+        "id": 3,
+        "title": "Kia Sportage IV 2.0 GT Line 4x4",
+        "year": "2016",
+        "mileage": "182 000 km",
+        "fuel": "Diesel",
+        "price": "58 000 zł",
+        "category": "suv",
+        "image": "images/kia-sportage.png",
+        "link": "https://autoplac.pl/oferta/kia/sportage/iv-2-0-2016r-gt-line-4x4-pelne-wyposazenie-maly-przebieg-bezwypadekowa-AGl11aVnUXcy",
+        "description": "PEŁNE wyposażenie, mały przebieg, BEZWYPADKOWA!"
+    },
+    {
+        "id": 4,
+        "title": "Jeep Renegade 1.0 OffRoad Style",
+        "year": "2019",
+        "mileage": "90 000 km",
+        "fuel": "Benzyna",
+        "price": "49 500 zł",
+        "category": "suv",
+        "image": "images/jeep-renegade.png",
+        "link": "https://autoplac.pl/oferta/jeep/renegade/1-0-2019r-z-malym-przebiegiem-offroad-style-bezwypadkowy-i-bezszkodowy-AGwmmWQOcxxf9",
+        "description": "Z małym przebiegiem, bezwypadkowy i bezszkodowy"
+    }
+]
