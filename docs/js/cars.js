@@ -4,6 +4,7 @@ const API_URL = 'https://vm-auto-production.up.railway.app/api';
 // Load cars when page loads
 document.addEventListener('DOMContentLoaded', function() {
     loadCarsForMainPage();
+    loadCarsForCarousel();
 });
 
 // Load and display cars on main page
@@ -30,6 +31,101 @@ async function loadCarsForMainPage() {
         console.error('Error loading cars:', error);
         carsContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #C94A40;">Błąd podczas ładowania samochodów</p>';
     }
+}
+
+// Load car images for About carousel
+async function loadCarsForCarousel() {
+    const carouselTrack = document.getElementById('aboutCarousel');
+    
+    if (!carouselTrack) {
+        return; // Not on about section
+    }
+    
+    try {
+        const response = await fetch(`${API_URL}/cars`);
+        const result = await response.json();
+        
+        if (response.ok && result.success && result.cars.length > 0) {
+            // Get cars that have images
+            const carsWithImages = result.cars.filter(car => car.images && car.images.length > 0);
+            
+            if (carsWithImages.length > 0) {
+                // Replace carousel images with car images
+                carouselTrack.innerHTML = carsWithImages.map(car => `
+                    <img src="${car.images[0]}" alt="${car.brand} ${car.model}" class="carousel-image">
+                `).join('');
+                
+                // Initialize carousel controls
+                initializeCarouselControls();
+            }
+        }
+    } catch (error) {
+        console.error('Error loading carousel images:', error);
+        // Keep default images on error
+    }
+}
+
+// Initialize carousel controls
+function initializeCarouselControls() {
+    const track = document.getElementById('aboutCarousel');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+    const dotsContainer = document.getElementById('carouselDots');
+    const images = track.querySelectorAll('.carousel-image');
+    
+    if (!track || images.length === 0) return;
+    
+    let currentIndex = 0;
+    const totalImages = images.length;
+    
+    // Create dots
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalImages; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'carousel-dot';
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+    }
+    
+    // Update carousel position
+    function updateCarousel() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Update dots
+        const dots = dotsContainer.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+    
+    // Go to specific slide
+    function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+    }
+    
+    // Next slide
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        updateCarousel();
+    }
+    
+    // Previous slide
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+        updateCarousel();
+    }
+    
+    // Button event listeners
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    
+    // Auto-advance every 5 seconds
+    setInterval(nextSlide, 5000);
+    
+    // Initial position
+    updateCarousel();
 }
 
 // Display cars on main page
