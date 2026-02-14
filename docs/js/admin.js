@@ -140,7 +140,8 @@ async function handleAddCar(e) {
         features: formData.get('features') ? formData.get('features').split(',').map(f => f.trim()) : [],
         images: uploadedImages, // Add uploaded images
         contact_phone: formData.get('contact_phone'),
-        contact_email: formData.get('contact_email')
+        contact_email: formData.get('contact_email'),
+        autoplac_link: formData.get('autoplac_link')
     };
 
     try {

@@ -23,6 +23,7 @@ class Car:
         self.images = data.get('images', [])
         self.contact_phone = data.get('contact_phone', '')
         self.contact_email = data.get('contact_email', '')
+        self.autoplac_link = data.get('autoplac_link', '')
         self.is_published = data.get('is_published', False)
         self.autoplac_listing_id = data.get('autoplac_listing_id', None)
         self.created_at = data.get('created_at', datetime.utcnow())
@@ -49,6 +50,7 @@ class Car:
             'images': self.images,
             'contact_phone': self.contact_phone,
             'contact_email': self.contact_email,
+            'autoplac_link': self.autoplac_link,
             'is_published': self.is_published,
             'autoplac_listing_id': self.autoplac_listing_id,
             'created_at': self.created_at,
