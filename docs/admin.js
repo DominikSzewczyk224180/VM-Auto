@@ -1,15 +1,74 @@
 // API Configuration - ZMIEŃ NA SWÓJ URL Z RAILWAY!
 const API_URL = 'https://vm-auto-production.up.railway.app/api';
 
+// Cloudinary Configuration
+const CLOUDINARY_CLOUD_NAME = 'dvnq5pxkg';
+const CLOUDINARY_UPLOAD_PRESET = 'vm-auto';
+
 // Global variables
 let allCars = [];
+let uploadedImages = [];
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     initializeTabs();
     initializeForms();
+    initializeCloudinaryWidget();
     loadCars();
 });
+
+// Initialize Cloudinary Upload Widget
+function initializeCloudinaryWidget() {
+    const uploadButton = document.getElementById('uploadWidget');
+    
+    if (!uploadButton) return;
+    
+    const myWidget = cloudinary.createUploadWidget({
+        cloudName: CLOUDINARY_CLOUD_NAME,
+        uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        sources: ['local', 'url', 'camera'],
+        multiple: true,
+        maxFiles: 10,
+        clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+        maxFileSize: 5000000, // 5MB
+        folder: 'vm-auto',
+        resourceType: 'image'
+    }, (error, result) => {
+        if (!error && result && result.event === "success") {
+            const imageUrl = result.info.secure_url;
+            uploadedImages.push(imageUrl);
+            updateImagePreview();
+            updateImagesInput();
+        }
+    });
+
+    uploadButton.addEventListener('click', function() {
+        myWidget.open();
+    }, false);
+}
+
+// Update image preview
+function updateImagePreview() {
+    const previewContainer = document.getElementById('imagePreview');
+    previewContainer.innerHTML = uploadedImages.map((url, index) => `
+        <div class="image-preview-item">
+            <img src="${url}" alt="Zdjęcie ${index + 1}">
+            <button type="button" class="remove-image" onclick="removeImage(${index})">×</button>
+        </div>
+    `).join('');
+}
+
+// Remove image from preview
+function removeImage(index) {
+    uploadedImages.splice(index, 1);
+    updateImagePreview();
+    updateImagesInput();
+}
+
+// Update hidden input with image URLs
+function updateImagesInput() {
+    document.getElementById('images').value = JSON.stringify(uploadedImages);
+}
 
 // Tab Navigation
 function initializeTabs() {
@@ -79,6 +138,7 @@ async function handleAddCar(e) {
         vin: formData.get('vin'),
         description: formData.get('description'),
         features: formData.get('features') ? formData.get('features').split(',').map(f => f.trim()) : [],
+        images: uploadedImages, // Add uploaded images
         contact_phone: formData.get('contact_phone'),
         contact_email: formData.get('contact_email')
     };
@@ -97,6 +157,8 @@ async function handleAddCar(e) {
         if (response.ok && result.success) {
             showToast('Samochód został dodany pomyślnie!', 'success');
             e.target.reset();
+            uploadedImages = []; // Clear uploaded images
+            updateImagePreview();
             loadCars();
             
             // Switch to car list tab
@@ -149,34 +211,43 @@ function displayCars(cars) {
 
     container.innerHTML = cars.map(car => `
         <div class="car-card" data-id="${car._id}">
-            <div class="car-header">
-                <h3 class="car-title">${car.brand} ${car.model}</h3>
-                <p class="car-year">${car.year}</p>
-            </div>
-            
-            <div class="car-price">${formatPrice(car.price)} PLN</div>
-            
-            <div class="car-details">
-                ${car.mileage ? `<div class="car-detail"><strong>Przebieg:</strong> ${formatNumber(car.mileage)} km</div>` : ''}
-                ${car.fuel_type ? `<div class="car-detail"><strong>Paliwo:</strong> ${car.fuel_type}</div>` : ''}
-                ${car.transmission ? `<div class="car-detail"><strong>Skrzynia:</strong> ${car.transmission}</div>` : ''}
-                ${car.engine_capacity ? `<div class="car-detail"><strong>Pojemność:</strong> ${car.engine_capacity}L</div>` : ''}
-                ${car.power ? `<div class="car-detail"><strong>Moc:</strong> ${car.power}</div>` : ''}
-                ${car.body_type ? `<div class="car-detail"><strong>Nadwozie:</strong> ${car.body_type}</div>` : ''}
-            </div>
-            
-            ${car.description ? `<p class="car-description">${car.description}</p>` : ''}
-            
-            ${car.features && car.features.length > 0 ? `
-                <div class="car-features">
-                    <strong>Wyposażenie:</strong> ${car.features.slice(0, 3).join(', ')}
-                    ${car.features.length > 3 ? '...' : ''}
+            ${car.images && car.images.length > 0 ? `
+                <div class="car-images">
+                    <img src="${car.images[0]}" alt="${car.brand} ${car.model}">
                 </div>
-            ` : ''}
-            
-            <div class="car-actions">
-                <button class="btn btn-edit" onclick="openEditModal('${car._id}')">Edytuj</button>
-                <button class="btn btn-danger" onclick="deleteCar('${car._id}')">Usuń</button>
+            ` : `
+                <div class="car-images-placeholder">🚗</div>
+            `}
+            <div class="car-content">
+                <div class="car-header">
+                    <h3 class="car-title">${car.brand} ${car.model}</h3>
+                    <p class="car-year">${car.year}</p>
+                </div>
+                
+                <div class="car-price">${formatPrice(car.price)} PLN</div>
+                
+                <div class="car-details">
+                    ${car.mileage ? `<div class="car-detail"><strong>Przebieg:</strong> ${formatNumber(car.mileage)} km</div>` : ''}
+                    ${car.fuel_type ? `<div class="car-detail"><strong>Paliwo:</strong> ${car.fuel_type}</div>` : ''}
+                    ${car.transmission ? `<div class="car-detail"><strong>Skrzynia:</strong> ${car.transmission}</div>` : ''}
+                    ${car.engine_capacity ? `<div class="car-detail"><strong>Pojemność:</strong> ${car.engine_capacity}L</div>` : ''}
+                    ${car.power ? `<div class="car-detail"><strong>Moc:</strong> ${car.power}</div>` : ''}
+                    ${car.body_type ? `<div class="car-detail"><strong>Nadwozie:</strong> ${car.body_type}</div>` : ''}
+                </div>
+                
+                ${car.description ? `<p class="car-description">${car.description}</p>` : ''}
+                
+                ${car.features && car.features.length > 0 ? `
+                    <div class="car-features">
+                        <strong>Wyposażenie:</strong> ${car.features.slice(0, 3).join(', ')}
+                        ${car.features.length > 3 ? '...' : ''}
+                    </div>
+                ` : ''}
+                
+                <div class="car-actions">
+                    <button class="btn btn-edit" onclick="openEditModal('${car._id}')">Edytuj</button>
+                    <button class="btn btn-danger" onclick="deleteCar('${car._id}')">Usuń</button>
+                </div>
             </div>
         </div>
     `).join('');

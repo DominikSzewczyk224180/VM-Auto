@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VM Auto - Panel Admina</title>
     <link rel="stylesheet" href="css/admin.css">
+    <!-- Cloudinary Upload Widget -->
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="container">
@@ -120,6 +122,14 @@
                     <div class="form-group full-width">
                         <label for="features">Wyposażenie (oddziel przecinkami)</label>
                         <input type="text" id="features" name="features" placeholder="Klimatyzacja automatyczna, Nawigacja, Kamera cofania">
+                    </div>
+
+                    <!-- Image Upload Section -->
+                    <div class="form-group full-width">
+                        <label>Zdjęcia samochodu</label>
+                        <button type="button" class="btn btn-secondary" id="uploadWidget">Dodaj zdjęcia</button>
+                        <div id="imagePreview" class="image-preview-grid"></div>
+                        <input type="hidden" id="images" name="images">
                     </div>
 
                     <div class="form-row">

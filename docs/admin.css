@@ -175,6 +175,49 @@ body {
     min-height: 100px;
 }
 
+/* Image Upload & Preview */
+.image-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.image-preview-item {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    aspect-ratio: 1;
+}
+
+.image-preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-preview-item .remove-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    transition: all 0.3s ease;
+}
+
+.image-preview-item .remove-image:hover {
+    background: var(--primary-dark);
+    transform: scale(1.1);
+}
+
 /* Buttons */
 .form-actions {
     display: flex;
@@ -297,7 +340,7 @@ body {
     background: var(--white);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 25px;
+    padding: 0;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -317,6 +360,35 @@ body {
     right: 0;
     height: 4px;
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+}
+
+.car-images {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg-light);
+}
+
+.car-images img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.car-images-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-light);
+    color: var(--text-light);
+    font-size: 3rem;
+}
+
+.car-content {
+    padding: 25px;
 }
 
 .car-header {
@@ -562,4 +634,84 @@ body {
     .car-actions {
         flex-direction: column;
     }
+}
+
+/* Image Upload Preview */
+.image-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.image-preview-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    aspect-ratio: 4/3;
+}
+
+.image-preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-preview-remove {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.image-preview-remove:hover {
+    background: #dc3545;
+    transform: scale(1.1);
+}
+
+/* Car Images in Card */
+.car-images {
+    margin: 15px 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.car-images img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.car-images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.car-images-grid img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.car-images-grid img:hover {
+    transform: scale(1.05);
 }
