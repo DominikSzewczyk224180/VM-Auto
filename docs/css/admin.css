@@ -134,7 +134,14 @@ body {
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white);
     padding: 40px;
-    text-align: center;
+}
+
+.admin-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .admin-header h1 {
@@ -147,6 +154,32 @@ body {
     font-size: 1.1rem;
     opacity: 0.95;
     font-weight: 400;
+}
+
+.btn-back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+}
+
+.btn-back-home:hover {
+    background: var(--white);
+    color: var(--primary-color);
+    border-color: var(--white);
+    transform: translateY(-2px);
+}
+
+.btn-back-home svg {
+    stroke: currentColor;
 }
 
 /* Tabs */
@@ -691,6 +724,20 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .admin-header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .admin-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .btn-back-home {
+        width: 100%;
+        justify-content: center;
+    }
+
     .form-row {
         grid-template-columns: 1fr;
     }
