@@ -8,14 +8,70 @@ const CLOUDINARY_UPLOAD_PRESET = 'vm-auto';
 // Global variables
 let allCars = [];
 let uploadedImages = [];
+let isAuthenticated = false;
+
+// Password
+const ADMIN_PASSWORD = '12345';
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
+    checkAuthentication();
+    initializeLogin();
     initializeTabs();
     initializeForms();
     initializeCloudinaryWidget();
-    loadCars();
 });
+
+// Check if user is already authenticated
+function checkAuthentication() {
+    const auth = sessionStorage.getItem('vm_auto_auth');
+    if (auth === 'authenticated') {
+        isAuthenticated = true;
+        showAdminPanel();
+    }
+}
+
+// Initialize login form
+function initializeLogin() {
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+}
+
+// Handle login
+function handleLogin(e) {
+    e.preventDefault();
+    
+    const password = document.getElementById('password').value;
+    const errorElement = document.getElementById('loginError');
+    
+    if (password === ADMIN_PASSWORD) {
+        // Success
+        sessionStorage.setItem('vm_auto_auth', 'authenticated');
+        isAuthenticated = true;
+        showAdminPanel();
+    } else {
+        // Error
+        errorElement.textContent = 'Nieprawidłowe hasło!';
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+        
+        // Shake animation
+        const loginContainer = document.querySelector('.login-container');
+        loginContainer.style.animation = 'shake 0.5s';
+        setTimeout(() => {
+            loginContainer.style.animation = '';
+        }, 500);
+    }
+}
+
+// Show admin panel
+function showAdminPanel() {
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('adminPanel').style.display = 'block';
+    loadCars();
+}
 
 // Initialize Cloudinary Upload Widget
 function initializeCloudinaryWidget() {
