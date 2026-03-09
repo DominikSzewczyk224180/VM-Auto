@@ -1,10 +1,10 @@
 /* ============================================
    VM AUTO & CARAVANS — Premium Design System
-   Color palette from logo: 
+   Color palette: 
    - Blue gradient: #38B6D8 → #1B3A6B (cyan to navy)
    - Silver/metallic: #8A8D90, #B4B7BA
-   - Orange accent: #E8923F
-   - Dark: #0F1923
+   - Dark accent: #1A1D20 (elegant black)
+   - Background dark: #0F1923
    ============================================ */
 
 :root {
@@ -19,10 +19,10 @@
     --blue-800: #1B3A6B;
     --blue-900: #0F2444;
 
-    /* Accent — Orange from logo */
-    --orange-400: #F5A623;
-    --orange-500: #E8923F;
-    --orange-600: #D17A2E;
+    /* Accent — Dark/Black elegant (replacing orange) */
+    --accent-400: #2C2F32;
+    --accent-500: #1A1D20;
+    --accent-600: #111315;
 
     /* Neutral / Silver */
     --silver-100: #F4F5F6;
@@ -50,7 +50,7 @@
     --shadow-lg: 0 12px 40px rgba(15,25,35,0.12), 0 4px 12px rgba(15,25,35,0.06);
     --shadow-xl: 0 24px 64px rgba(15,25,35,0.16);
     --shadow-blue: 0 8px 32px rgba(42,152,189,0.25);
-    --shadow-orange: 0 8px 32px rgba(232,146,63,0.25);
+    --shadow-accent: 0 8px 32px rgba(26,29,32,0.3);
 
     /* Spacing */
     --section-gap: 100px;
@@ -127,7 +127,7 @@ ul { list-style: none; }
 }
 
 .text-accent {
-    color: var(--orange-500);
+    color: var(--accent-500);
 }
 
 .section {
@@ -236,7 +236,7 @@ ul { list-style: none; }
 }
 
 .btn-glass svg {
-    fill: var(--orange-400);
+    fill: #D4AF37;
 }
 
 .btn-lg {
@@ -275,16 +275,34 @@ ul { list-style: none; }
 
 .logo-link {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.logo-img {
-    height: 56px;
+.logo-silhouette {
+    height: 28px;
     width: auto;
-    transition: transform 0.3s var(--ease-out);
+    opacity: 0.85;
+    transition: opacity 0.3s var(--ease-out);
 }
 
-.logo-link:hover .logo-img {
-    transform: scale(1.03);
+.logo-link:hover .logo-silhouette {
+    opacity: 1;
+}
+
+.logo-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.logo-text span {
+    font-weight: 400;
+    color: var(--silver-500);
 }
 
 .nav {
@@ -403,7 +421,7 @@ ul { list-style: none; }
     opacity: 0.06;
     background-image:
         radial-gradient(circle at 25% 25%, var(--blue-400) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, var(--orange-500) 0%, transparent 50%);
+        radial-gradient(circle at 75% 75%, var(--silver-400) 0%, transparent 50%);
 }
 
 .hero-glow {
@@ -504,11 +522,39 @@ ul { list-style: none; }
     backdrop-filter: blur(8px);
 }
 
+/* Hero brand / wordmark */
+.hero-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.hero-brand-icon {
+    height: 30px;
+    width: auto;
+    opacity: 0.5;
+    filter: brightness(3);
+}
+
+.hero-brand-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: -0.01em;
+}
+
+.hero-brand-name span {
+    color: var(--silver-400);
+    font-weight: 400;
+}
+
 .hero-badge-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--orange-400);
+    background: var(--blue-400);
     animation: blink 2s ease-in-out infinite;
 }
 
@@ -527,7 +573,7 @@ ul { list-style: none; }
 }
 
 .hero-title .text-gradient {
-    background: linear-gradient(135deg, var(--blue-200) 0%, var(--orange-400) 100%);
+    background: linear-gradient(135deg, var(--blue-200) 0%, #E0E2E5 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -602,7 +648,7 @@ ul { list-style: none; }
     font-family: 'Outfit', sans-serif;
     font-size: 2.4rem;
     font-weight: 900;
-    background: linear-gradient(135deg, var(--blue-200), var(--orange-400));
+    background: linear-gradient(135deg, var(--blue-300, #7DD4EB), #C8CBCE);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -734,7 +780,7 @@ ul { list-style: none; }
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--blue-400), var(--orange-400));
+    background: linear-gradient(90deg, var(--blue-400), var(--accent-400));
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -943,7 +989,7 @@ ul { list-style: none; }
     padding: 24px 28px;
     margin-bottom: 32px;
     background: rgba(255,255,255,0.04);
-    border-left: 3px solid var(--orange-400);
+    border-left: 3px solid var(--blue-500);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
@@ -974,7 +1020,7 @@ ul { list-style: none; }
 }
 
 .about-owner-text .about-stat-num {
-    background: linear-gradient(135deg, var(--blue-200), var(--orange-400));
+    background: linear-gradient(135deg, var(--blue-300, #7DD4EB), #C8CBCE);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1172,7 +1218,7 @@ ul { list-style: none; }
     inset: 0;
     background:
         radial-gradient(circle at 15% 50%, rgba(56,182,216,0.08) 0%, transparent 50%),
-        radial-gradient(circle at 85% 50%, rgba(232,146,63,0.06) 0%, transparent 50%);
+        radial-gradient(circle at 85% 50%, rgba(200,203,206,0.04) 0%, transparent 50%);
 }
 
 .reviews-section .section-tag {
@@ -1185,7 +1231,7 @@ ul { list-style: none; }
 }
 
 .reviews-section .section-title .text-gradient {
-    background: linear-gradient(135deg, var(--blue-200), var(--orange-400));
+    background: linear-gradient(135deg, var(--blue-300, #7DD4EB), #C8CBCE);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1231,7 +1277,7 @@ ul { list-style: none; }
 }
 
 .review-stars svg {
-    fill: var(--orange-400);
+    fill: #D4AF37;
 }
 
 .review-quote {
@@ -1381,11 +1427,31 @@ ul { list-style: none; }
     padding-bottom: 48px;
 }
 
-.footer-logo {
-    height: 64px;
-    width: auto;
+.footer-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin-bottom: 20px;
-    filter: brightness(1.1);
+}
+
+.footer-logo-icon {
+    height: 24px;
+    width: auto;
+    filter: brightness(3);
+    opacity: 0.6;
+}
+
+.footer-logo-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-inverse);
+    letter-spacing: -0.01em;
+}
+
+.footer-logo-text span {
+    font-weight: 400;
+    color: var(--silver-500);
 }
 
 .footer-brand p {
