@@ -109,6 +109,167 @@ document.querySelectorAll('[data-animate]').forEach(el => {
     animateObserver.observe(el);
 });
 
+// --- Floating Particles ---
+(function initParticles() {
+    const canvas = document.getElementById('heroParticles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let w, h;
+    
+    function resize() {
+        w = canvas.width = canvas.offsetWidth;
+        h = canvas.height = canvas.offsetHeight;
+    }
+    
+    resize();
+    window.addEventListener('resize', resize);
+    
+    // Create particles
+    for (let i = 0; i < 40; i++) {
+        particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.5 + 0.3,
+            dx: (Math.random() - 0.5) * 0.3,
+            dy: (Math.random() - 0.5) * 0.2,
+            alpha: Math.random() * 0.3 + 0.05
+        });
+    }
+    
+    function draw() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+            ctx.fill();
+            
+            p.x += p.dx;
+            p.y += p.dy;
+            
+            if (p.x < 0) p.x = w;
+            if (p.x > w) p.x = 0;
+            if (p.y < 0) p.y = h;
+            if (p.y > h) p.y = 0;
+        });
+        
+        // Draw subtle connecting lines
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(255,255,255,${0.03 * (1 - dist / 150)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        requestAnimationFrame(draw);
+    }
+    
+    draw();
+})();
+
+// --- Counter Animation ---
+function animateCounters() {
+    document.querySelectorAll('[data-count]').forEach(el => {
+        const target = parseInt(el.dataset.count);
+        const suffix = el.querySelector('span');
+        const suffixText = suffix ? suffix.textContent : '';
+        const duration = 2000;
+        const start = performance.now();
+        
+        function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * target);
+            
+            el.textContent = current;
+            if (suffixText) {
+                const s = document.createElement('span');
+                s.textContent = suffixText;
+                el.appendChild(s);
+            }
+            
+            if (progress < 1) requestAnimationFrame(update);
+        }
+        
+        requestAnimationFrame(update);
+    });
+}
+
+// Trigger counters when hero stat cards come into view
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounters();
+            counterObserver.disconnect();
+        }
+    });
+}, { threshold: 0.3 });
+
+const heroCards = document.querySelector('.hero-card-stack');
+if (heroCards) counterObserver.observe(heroCards);
+
+// --- Parallax on scroll ---
+let rafScroll;
+window.addEventListener('scroll', () => {
+    if (rafScroll) return;
+    rafScroll = requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        
+        // Parallax hero elements
+        const silCenter = document.querySelector('.hero-bg-silhouette-center');
+        const silBottom = document.querySelector('.hero-bg-silhouette');
+        if (silCenter) silCenter.style.transform = `translate(-50%, calc(-50% + ${scrollY * 0.08}px))`;
+        if (silBottom) silBottom.style.transform = `translateX(-50%) translateY(${scrollY * 0.05}px)`;
+        
+        // Parallax hero text
+        const heroText = document.querySelector('.hero-text');
+        if (heroText && scrollY < window.innerHeight) {
+            heroText.style.transform = `translateY(${scrollY * 0.12}px)`;
+            heroText.style.opacity = 1 - (scrollY / (window.innerHeight * 0.8));
+        }
+        
+        rafScroll = null;
+    });
+});
+
+// --- Tilt effect on stat cards ---
+document.querySelectorAll('.hero-stat-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(600px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+    });
+});
+
+// --- Magnetic hover on buttons ---
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) translateY(-3px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+    });
+});
+
 // --- Carousel ---
 document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('aboutCarousel');

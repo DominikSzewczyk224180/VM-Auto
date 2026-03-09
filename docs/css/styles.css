@@ -472,6 +472,28 @@ ul { list-style: none; }
     z-index: 1;
 }
 
+/* Second silhouette — bigger, centered, the main decorative one */
+.hero-bg-silhouette-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55%;
+    max-width: 750px;
+    opacity: 0.045;
+    pointer-events: none;
+    filter: brightness(4);
+    z-index: 1;
+}
+
+/* Floating particles canvas */
+.hero-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
 /* Silhouette Divider between sections */
 .silhouette-divider {
     background: var(--bg-primary);
@@ -533,7 +555,7 @@ ul { list-style: none; }
 }
 
 .hero-brand-icon {
-    height: 32px;
+    height: 40px;
     width: auto;
     opacity: 0.35;
     filter: brightness(5);
@@ -548,7 +570,7 @@ ul { list-style: none; }
 
 .hero-brand-vm {
     font-family: 'Outfit', sans-serif;
-    font-size: 2rem;
+    font-size: 2.8rem;
     font-weight: 900;
     color: #FFFFFF;
     letter-spacing: -0.03em;
@@ -556,7 +578,7 @@ ul { list-style: none; }
 
 .hero-brand-rest {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 400;
     color: rgba(255,255,255,0.4);
     letter-spacing: 0.04em;
@@ -592,12 +614,12 @@ ul { list-style: none; }
 /* ---- Hero Title — mixed typography ---- */
 .hero-title {
     font-family: 'Outfit', sans-serif;
-    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+    font-size: clamp(3rem, 6vw, 5rem);
     font-weight: 800;
     color: var(--text-inverse);
     margin-bottom: 28px;
     letter-spacing: -0.03em;
-    line-height: 1.05;
+    line-height: 1.0;
 }
 
 .hero-title-accent {
@@ -614,12 +636,12 @@ ul { list-style: none; }
 
 .hero-title-sub {
     display: block;
-    font-size: 0.55em;
+    font-size: 0.45em;
     font-weight: 500;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-top: 8px;
+    margin-top: 12px;
 }
 
 .hero-desc {
@@ -1692,13 +1714,15 @@ ul { list-style: none; }
     }
 
     .hero-brand { flex-wrap: wrap; gap: 10px; }
-    .hero-brand-vm { font-size: 1.5rem; }
-    .hero-brand-rest { font-size: 0.9rem; }
-    .hero-brand-icon { height: 22px; }
+    .hero-brand-vm { font-size: 2rem; }
+    .hero-brand-rest { font-size: 1.1rem; }
+    .hero-brand-icon { height: 28px; }
 
     .hero-title {
-        font-size: clamp(2rem, 8vw, 3rem);
+        font-size: clamp(2.4rem, 9vw, 3.5rem);
     }
+
+    .hero-bg-silhouette-center { width: 80%; opacity: 0.03; }
 
     .hero-card-stack {
         flex-direction: column;
