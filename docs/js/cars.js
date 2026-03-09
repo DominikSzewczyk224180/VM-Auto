@@ -1,3 +1,7 @@
+// ============================================
+// VM AUTO — Cars Loading Script
+// ============================================
+
 // API Configuration
 const API_URL = 'https://vm-auto-production.up.railway.app/api';
 
@@ -10,159 +14,61 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load and display cars on main page
 async function loadCarsForMainPage() {
     const carsContainer = document.querySelector('.cars-grid');
+    if (!carsContainer) return;
     
-    if (!carsContainer) {
-        return; // Not on cars section
-    }
-    
-    // Show loading
-    carsContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #6B6B6B;">Ładowanie samochodów...</p>';
+    carsContainer.innerHTML = '<p style="text-align:center; padding:60px 20px; color:var(--text-secondary); grid-column:1/-1; font-size:1rem;">Ładowanie samochodów...</p>';
     
     try {
+        // Try API first
         const response = await fetch(`${API_URL}/cars`);
         const result = await response.json();
         
         if (response.ok && result.success && result.cars.length > 0) {
-            displayCarsOnMainPage(result.cars);
-        } else {
-            carsContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #6B6B6B;">Brak dostępnych samochodów</p>';
+            displayCarsFromAPI(result.cars, carsContainer);
+            return;
         }
+    } catch (error) {
+        console.log('API unavailable, falling back to JSON:', error.message);
+    }
+    
+    // Fallback to local JSON
+    try {
+        const response = await fetch('cars.json');
+        const cars = await response.json();
+        displayCarsFromJSON(cars, carsContainer);
     } catch (error) {
         console.error('Error loading cars:', error);
-        carsContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #C94A40;">Błąd podczas ładowania samochodów</p>';
+        carsContainer.innerHTML = '<p style="text-align:center; padding:60px 20px; color:var(--text-secondary); grid-column:1/-1;">Przepraszamy, nie udało się załadować oferty. Prosimy o kontakt telefoniczny.</p>';
     }
 }
 
-// Load car images for About carousel
-async function loadCarsForCarousel() {
-    const carouselTrack = document.getElementById('aboutCarousel');
-    
-    if (!carouselTrack) {
-        return; // Not on about section
-    }
-    
-    try {
-        const response = await fetch(`${API_URL}/cars`);
-        const result = await response.json();
-        
-        if (response.ok && result.success && result.cars.length > 0) {
-            // Get cars that have images
-            const carsWithImages = result.cars.filter(car => car.images && car.images.length > 0);
-            
-            if (carsWithImages.length > 0) {
-                // Replace carousel images with car images
-                carouselTrack.innerHTML = carsWithImages.map(car => `
-                    <img src="${car.images[0]}" alt="${car.brand} ${car.model}" class="carousel-image">
-                `).join('');
-                
-                // Initialize carousel controls
-                initializeCarouselControls();
-            }
-        }
-    } catch (error) {
-        console.error('Error loading carousel images:', error);
-        // Keep default images on error
-    }
-}
-
-// Initialize carousel controls
-function initializeCarouselControls() {
-    const track = document.getElementById('aboutCarousel');
-    const prevBtn = document.getElementById('carouselPrev');
-    const nextBtn = document.getElementById('carouselNext');
-    const dotsContainer = document.getElementById('carouselDots');
-    const images = track.querySelectorAll('.carousel-image');
-    
-    if (!track || images.length === 0) return;
-    
-    let currentIndex = 0;
-    const totalImages = images.length;
-    
-    // Create dots
-    dotsContainer.innerHTML = '';
-    for (let i = 0; i < totalImages; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'carousel-dot';
-        if (i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(i));
-        dotsContainer.appendChild(dot);
-    }
-    
-    // Update carousel position
-    function updateCarousel() {
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        
-        // Update dots
-        const dots = dotsContainer.querySelectorAll('.carousel-dot');
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentIndex);
-        });
-    }
-    
-    // Go to specific slide
-    function goToSlide(index) {
-        currentIndex = index;
-        updateCarousel();
-    }
-    
-    // Next slide
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % totalImages;
-        updateCarousel();
-    }
-    
-    // Previous slide
-    function prevSlide() {
-        currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-        updateCarousel();
-    }
-    
-    // Button event listeners
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-    
-    // Initial position
-    updateCarousel();
-}
-
-// Display cars on main page
-function displayCarsOnMainPage(cars) {
-    const carsContainer = document.querySelector('.cars-grid');
-    
-    carsContainer.innerHTML = cars.map(car => `
-        <div class="car-card">
+// Display cars from API
+function displayCarsFromAPI(cars, container) {
+    container.innerHTML = cars.map(car => `
+        <div class="car-card" data-animate="fade-up">
             ${car.images && car.images.length > 0 ? `
-                <img src="${car.images[0]}" alt="${car.brand} ${car.model}" class="car-image">
-            ` : `
-                <div class="car-image-placeholder" style="background: var(--bg-light); display: flex; align-items: center; justify-content: center; height: 240px; color: var(--text-light);">
-                    <span style="font-size: 1.2rem;">Brak zdjęcia</span>
+                <div class="car-image-wrap">
+                    <img src="${car.images[0]}" alt="${car.brand} ${car.model}" class="car-image" loading="lazy">
                 </div>
+            ` : `
+                <div class="car-image-placeholder">Brak zdjęcia</div>
             `}
             <div class="car-content">
                 <h3 class="car-title">${car.brand} ${car.model}</h3>
                 <div class="car-details">
                     <span class="car-detail">
-                        <svg width="16" height="16" viewBox="0 0 24 24">
-                            <use href="#icon-calendar"/>
-                        </svg>
+                        <svg width="15" height="15" viewBox="0 0 24 24"><use href="#icon-calendar"/></svg>
                         ${car.year}
                     </span>
                     ${car.mileage ? `
                         <span class="car-detail">
-                            <svg width="16" height="16" viewBox="0 0 24 24">
-                                <use href="#icon-road"/>
-                            </svg>
+                            <svg width="15" height="15" viewBox="0 0 24 24"><use href="#icon-road"/></svg>
                             ${formatNumber(car.mileage)} km
                         </span>
                     ` : ''}
                     ${car.fuel_type ? `
                         <span class="car-detail">
-                            <svg width="16" height="16" viewBox="0 0 24 24">
-                                <use href="#icon-fuel"/>
-                            </svg>
+                            <svg width="15" height="15" viewBox="0 0 24 24"><use href="#icon-fuel"/></svg>
                             ${car.fuel_type}
                         </span>
                     ` : ''}
@@ -171,29 +77,122 @@ function displayCarsOnMainPage(cars) {
                 ${car.autoplac_link ? `
                     <a href="${car.autoplac_link}" target="_blank" rel="noopener noreferrer" class="car-link">
                         Zobacz szczegóły
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
                 ` : `
-                    <a href="tel:${car.contact_phone || '799999100'}" class="car-link">
+                    <a href="tel:${car.contact_phone || '799939100'}" class="car-link">
                         Zadzwoń
-                        <svg width="16" height="16" viewBox="0 0 24 24">
-                            <use href="#icon-phone"/>
-                        </svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
                     </a>
                 `}
             </div>
         </div>
     `).join('');
+    
+    observeNewCards(container);
 }
 
-// Format price with thousands separator
+// Display cars from local JSON
+function displayCarsFromJSON(cars, container) {
+    if (cars.length === 0) {
+        container.innerHTML = '<p style="text-align:center; padding:60px 20px; color:var(--text-secondary); grid-column:1/-1;">Brak dostępnych pojazdów.</p>';
+        return;
+    }
+    
+    container.innerHTML = cars.map(car => `
+        <div class="car-card" data-animate="fade-up">
+            <div class="car-image-wrap">
+                <img src="${car.image}" alt="${car.title}" class="car-image" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'car-image-placeholder\\'>Brak zdjęcia</div>'">
+            </div>
+            <div class="car-content">
+                <h3 class="car-title">${car.title}</h3>
+                <div class="car-details">
+                    <span class="car-detail">
+                        <svg width="15" height="15" viewBox="0 0 24 24"><use href="#icon-calendar"/></svg>
+                        ${car.year}
+                    </span>
+                    <span class="car-detail">
+                        <svg width="15" height="15" viewBox="0 0 24 24"><use href="#icon-road"/></svg>
+                        ${car.mileage}
+                    </span>
+                    <span class="car-detail">
+                        <svg width="15" height="15" viewBox="0 0 24 24"><use href="#icon-fuel"/></svg>
+                        ${car.fuel}
+                    </span>
+                </div>
+                <div class="car-price">${car.price}</div>
+                <a href="${car.link}" target="_blank" rel="noopener noreferrer" class="car-link">
+                    Zobacz szczegóły
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    `).join('');
+    
+    observeNewCards(container);
+}
+
+// Observe dynamically added cards
+function observeNewCards(container) {
+    const cards = container.querySelectorAll('[data-animate]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('animated'), i * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    cards.forEach(card => observer.observe(card));
+}
+
+// Load car images for About carousel
+async function loadCarsForCarousel() {
+    const carouselTrack = document.getElementById('aboutCarousel');
+    if (!carouselTrack) return;
+    
+    try {
+        const response = await fetch(`${API_URL}/cars`);
+        const result = await response.json();
+        
+        if (response.ok && result.success && result.cars.length > 0) {
+            const carsWithImages = result.cars.filter(car => car.images && car.images.length > 0);
+            
+            if (carsWithImages.length > 0) {
+                carouselTrack.innerHTML = carsWithImages.map(car => `
+                    <img src="${car.images[0]}" alt="${car.brand} ${car.model}" class="carousel-image" loading="lazy">
+                `).join('');
+                
+                // Re-init carousel dots
+                reinitCarouselDots();
+            }
+        }
+    } catch (error) {
+        console.log('Carousel: using default images');
+    }
+}
+
+function reinitCarouselDots() {
+    const track = document.getElementById('aboutCarousel');
+    const dotsContainer = document.getElementById('carouselDots');
+    if (!track || !dotsContainer) return;
+    
+    const images = track.querySelectorAll('.carousel-image');
+    dotsContainer.innerHTML = '';
+    
+    images.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dotsContainer.appendChild(dot);
+    });
+}
+
+// Utilities
 function formatPrice(price) {
     return new Intl.NumberFormat('pl-PL').format(price);
 }
 
-// Format number with thousands separator
 function formatNumber(num) {
     return new Intl.NumberFormat('pl-PL').format(num);
 }

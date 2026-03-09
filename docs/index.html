@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="VM Auto - Komis samochodowy w Radlinie. Sprawdzone samochody używane, Fiaty, Jeepy, Kia, Hyundai i więcej. Profesjonalna obsługa i uczciwe ceny.">
-    <meta name="keywords" content="komis samochodowy, samochody używane, VM Auto, Radlin, sprzedaż aut">
-    <title>VM Auto - Komis Samochodowy | Radlin</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="VM Auto & Caravans - Komis samochodowy w Radlinie. Sprawdzone samochody używane i kampery. Profesjonalna obsługa i uczciwe ceny.">
+    <meta name="keywords" content="komis samochodowy, samochody używane, kampery, VM Auto, Radlin, sprzedaż aut, caravans">
+    <title>VM Auto & Caravans | Komis Samochodowy Radlin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <!-- SVG Icons -->
@@ -50,208 +50,232 @@
         <symbol id="icon-clock" viewBox="0 0 24 24">
             <path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
         </symbol>
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+        </symbol>
+        <symbol id="icon-star" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+        </symbol>
+        <symbol id="icon-quote" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+        </symbol>
     </svg>
-    
-    <!-- Header -->
-    <header class="header">
+
+    <!-- ========== HEADER ========== -->
+    <header class="header" id="header">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="logo.png" alt="VM Auto Logo" class="logo-img">
-                </div>
+            <div class="header-inner">
+                <a href="#home" class="logo-link">
+                    <img src="images/logo-full.png" alt="VM Auto & Caravans" class="logo-img">
+                </a>
                 <nav class="nav" id="mainNav">
                     <ul class="nav-list">
-                        <li><a href="#home">Start</a></li>
-                        <li><a href="#cars">Oferta</a></li>
-                        <li><a href="#about">O nas</a></li>
-                        <li><a href="#contact">Kontakt</a></li>
+                        <li><a href="#home" class="nav-link active">Start</a></li>
+                        <li><a href="#cars" class="nav-link">Oferta</a></li>
+                        <li><a href="#about" class="nav-link">O nas</a></li>
+                        <li><a href="#reviews" class="nav-link">Opinie</a></li>
+                        <li><a href="#contact" class="nav-link">Kontakt</a></li>
                     </ul>
                 </nav>
-                <a href="tel:799999100" class="header-phone-btn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <use href="#icon-phone"/>
-                    </svg>
-                    <span>799 999 100</span>
-                </a>
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                <div class="header-actions">
+                    <a href="tel:799939100" class="header-cta">
+                        <span class="header-cta-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
+                        </span>
+                        <span class="header-cta-text">799 939 100</span>
+                    </a>
+                    <button class="burger" id="burger" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- ========== HERO ========== -->
     <section class="hero" id="home">
-        <div class="hero-pattern"></div>
+        <div class="hero-bg">
+            <div class="hero-gradient"></div>
+            <div class="hero-mesh"></div>
+            <div class="hero-glow"></div>
+            <img src="images/car-silhouette-blue.png" alt="" class="hero-bg-silhouette" aria-hidden="true">
+        </div>
         <div class="container">
             <div class="hero-content">
-                <span class="hero-badge">Sprawdzone Samochody Używane</span>
-                <h1 class="hero-title">Kup Auto Bez Stresu<br>w VM Auto</h1>
-                <p class="hero-subtitle">Profesjonalny komis samochodowy w Radlinie<br>Transparentność • Uczciwe ceny • Pełna historia pojazdu</p>
-                <div class="hero-buttons">
-                    <a href="#cars" class="btn btn-primary">
-                        <span>Zobacz ofertę</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        <span>Skontaktuj się</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
+                <div class="hero-text">
+                    <div class="hero-badge" data-animate="fade-up">
+                        <span class="hero-badge-dot"></span>
+                        Sprawdzone Auta & Kampery
+                    </div>
+                    <h1 class="hero-title" data-animate="fade-up" data-delay="100">
+                        Kupujesz <span class="text-gradient">bez stresu</span> —<br>
+                        sprawdzone auto czeka
+                    </h1>
+                    <p class="hero-desc" data-animate="fade-up" data-delay="200">
+                        Profesjonalny komis samochodowy w Radlinie. Każdy pojazd z pełną historią, po kontroli technicznej i serwisie. Uczciwie i transparentnie.
+                    </p>
+                    <div class="hero-actions" data-animate="fade-up" data-delay="300">
+                        <a href="#cars" class="btn btn-primary btn-lg">
+                            <span>Zobacz ofertę</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="tel:799939100" class="btn btn-glass btn-lg">
+                            <svg width="20" height="20" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
+                            <span>Zadzwoń teraz</span>
+                        </a>
+                    </div>
                 </div>
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <div class="hero-stat-number">500+</div>
-                        <div class="hero-stat-label">Zadowolonych Klientów</div>
+                <div class="hero-visual" data-animate="fade-left" data-delay="400">
+                    <div class="hero-card-stack">
+                        <div class="hero-stat-card" style="--i:0">
+                            <div class="hsc-number">500+</div>
+                            <div class="hsc-label">Zadowolonych klientów</div>
+                        </div>
+                        <div class="hero-stat-card" style="--i:1">
+                            <div class="hsc-number">15+</div>
+                            <div class="hsc-label">Lat doświadczenia</div>
+                        </div>
+                        <div class="hero-stat-card" style="--i:2">
+                            <div class="hsc-number">100%</div>
+                            <div class="hsc-label">Sprawdzonych aut</div>
+                        </div>
                     </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-number">15+</div>
-                        <div class="hero-stat-label">Lat Doświadczenia</div>
+                    <img src="images/car-silhouette-blue.png" alt="" class="hero-silhouette" aria-hidden="true">
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- ========== TRUST BAR ========== -->
+    <section class="trust-bar">
+        <div class="container">
+            <div class="trust-items">
+                <div class="trust-item" data-animate="fade-up" data-delay="0">
+                    <div class="trust-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24"><use href="#icon-verified"/></svg>
                     </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-number">100%</div>
-                        <div class="hero-stat-label">Sprawdzonych Aut</div>
+                    <div class="trust-text">
+                        <strong>Sprawdzone Pojazdy</strong>
+                        <span>Pełna kontrola techniczna</span>
+                    </div>
+                </div>
+                <div class="trust-item" data-animate="fade-up" data-delay="100">
+                    <div class="trust-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24"><use href="#icon-shield"/></svg>
+                    </div>
+                    <div class="trust-text">
+                        <strong>Transparentność</strong>
+                        <span>Pełna historia pojazdu</span>
+                    </div>
+                </div>
+                <div class="trust-item" data-animate="fade-up" data-delay="200">
+                    <div class="trust-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24"><use href="#icon-money"/></svg>
+                    </div>
+                    <div class="trust-text">
+                        <strong>Uczciwe Ceny</strong>
+                        <span>Możliwość negocjacji</span>
+                    </div>
+                </div>
+                <div class="trust-item" data-animate="fade-up" data-delay="300">
+                    <div class="trust-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24"><use href="#icon-handshake"/></svg>
+                    </div>
+                    <div class="trust-text">
+                        <strong>Profesjonalizm</strong>
+                        <span>Rzetelna obsługa</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    <!-- ========== CARS SECTION ========== -->
+    <section class="section cars-section" id="cars">
         <div class="container">
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24">
-                            <use href="#icon-verified"/>
-                        </svg>
-                    </div>
-                    <h3>Sprawdzone Pojazdy</h3>
-                    <p>Każdy samochód przed sprzedażą przechodzi kontrolę techniczną</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24">
-                            <use href="#icon-shield"/>
-                        </svg>
-                    </div>
-                    <h3>Transparentność</h3>
-                    <p>Pełna informacja o historii pojazdu, bez ukrywania wad</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24">
-                            <use href="#icon-money"/>
-                        </svg>
-                    </div>
-                    <h3>Uczciwe Ceny</h3>
-                    <p>Konkurencyjne ceny i możliwość negocjacji</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24">
-                            <use href="#icon-handshake"/>
-                        </svg>
-                    </div>
-                    <h3>Profesjonalna Obsługa</h3>
-                    <p>Doświadczenie i rzetelność w każdej transakcji</p>
-                </div>
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Nasza Oferta</span>
+                <h2 class="section-title">Polecane <span class="text-gradient">Pojazdy</span></h2>
+                <p class="section-desc">Sprawdź nasze najlepsze samochody i kampery w aktualnej ofercie</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Cars Section -->
-    <section class="cars-section" id="cars">
-        <div class="container">
-            <h2 class="section-title">Polecane Oferty</h2>
-            <p class="section-subtitle">Sprawdź nasze najlepsze samochody w aktualnej ofercie</p>
 
             <div class="cars-grid" id="carsGrid">
-                <!-- Cars will be loaded dynamically from JSON -->
+                <!-- Cars loaded dynamically -->
             </div>
-            
-            <div class="view-all-offers">
-                <a href="https://autoplac.pl/dealer/2020vmauto?orderBy=INSERT_TIME&sortOrder=DESC" target="_blank" class="btn-view-all">
+
+            <div class="section-cta" data-animate="fade-up">
+                <a href="https://autoplac.pl/dealer/2020vmauto?orderBy=INSERT_TIME&sortOrder=DESC" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
                     <span>Nasza cała oferta</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about-section" id="about">
+    <!-- Silhouette Divider -->
+    <div class="silhouette-divider">
+        <img src="images/car-silhouette-blue.png" alt="" aria-hidden="true">
+    </div>
+
+    <!-- ========== ABOUT SECTION ========== -->
+    <section class="section about-section" id="about">
         <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">O VM Auto</h2>
-                    <p>VM Auto to komis samochodowy działający w Radlinie, specjalizujący się w sprzedaży sprawdzonych samochodów używanych. Nasza oferta obejmuje szeroką gamę marek, ze szczególnym naciskiem na Fiaty, Jeepy, Kia i Hyundai.</p>
-                    <p>Stawiamy na transparentność - informujemy o pełnej historii każdego pojazdu, włączając w to ewentualne szkody. Każde auto przed sprzedażą przechodzi kontrolę techniczną i serwis olejowy.</p>
-                    <p>Nasi klienci cenią nas za uczciwość, profesjonalizm i konkretność. Nie owijamy w bawełnę - pokazujemy pojazdy takimi, jakie są, co buduje zaufanie i długotrwałe relacje.</p>
-                    
-                    <div class="about-features">
-                        <div class="about-feature">
-                            <svg width="24" height="24" viewBox="0 0 24 24">
-                                <use href="#icon-verified"/>
-                            </svg>
-                            <span>Kontrola techniczna przed sprzedażą</span>
-                        </div>
-                        <div class="about-feature">
-                            <svg width="24" height="24" viewBox="0 0 24 24">
-                                <use href="#icon-shield"/>
-                            </svg>
-                            <span>Pełna historia pojazdu</span>
-                        </div>
-                        <div class="about-feature">
-                            <svg width="24" height="24" viewBox="0 0 24 24">
-                                <use href="#icon-deal"/>
-                            </svg>
-                            <span>Możliwość negocjacji ceny</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual">
-                    <div class="about-carousel">
-                        <div class="carousel-container">
+            <div class="about-layout">
+                <div class="about-left" data-animate="fade-right">
+                    <div class="about-carousel-wrap">
+                        <div class="about-carousel">
                             <div class="carousel-track" id="aboutCarousel">
                                 <img src="images/hyundai-ioniq.png" alt="Hyundai Ioniq" class="carousel-image">
                                 <img src="images/kia-sportage.png" alt="Kia Sportage" class="carousel-image">
                                 <img src="images/jeep-renegade.png" alt="Jeep Renegade" class="carousel-image">
                                 <img src="images/dethleffs-camper.png" alt="Dethleffs Camper" class="carousel-image">
                             </div>
-                            <button class="carousel-btn carousel-prev" id="carouselPrev">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M15 18l-6-6 6-6"/>
-                                </svg>
+                            <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Poprzedni">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
                             </button>
-                            <button class="carousel-btn carousel-next" id="carouselNext">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 18l6-6-6-6"/>
-                                </svg>
+                            <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Następny">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
                             </button>
                             <div class="carousel-dots" id="carouselDots"></div>
                         </div>
                     </div>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <div class="stat-number">500+</div>
-                            <div class="stat-label">Zadowolonych Klientów</div>
+                </div>
+                <div class="about-right" data-animate="fade-left">
+                    <span class="section-tag">O Nas</span>
+                    <h2 class="section-title section-title--left">VM Auto <span class="text-accent">&</span> Caravans</h2>
+                    <p class="about-desc">VM Auto to komis samochodowy działający w Radlinie, specjalizujący się w sprzedaży sprawdzonych samochodów używanych i kamperów. Nasza oferta obejmuje szeroką gamę marek, ze szczególnym naciskiem na jakość i uczciwość.</p>
+                    <p class="about-desc">Stawiamy na transparentność — informujemy o pełnej historii każdego pojazdu. Każde auto przed sprzedażą przechodzi kontrolę techniczną i serwis olejowy.</p>
+                    <div class="about-features-list">
+                        <div class="about-feat">
+                            <svg width="22" height="22" viewBox="0 0 24 24"><use href="#icon-deal"/></svg>
+                            <span>Kontrola techniczna przed sprzedażą</span>
                         </div>
-                        <div class="stat">
-                            <div class="stat-number">15+</div>
-                            <div class="stat-label">Lat Doświadczenia</div>
+                        <div class="about-feat">
+                            <svg width="22" height="22" viewBox="0 0 24 24"><use href="#icon-shield"/></svg>
+                            <span>Pełna historia pojazdu</span>
                         </div>
-                        <div class="stat">
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">Sprawdzonych Aut</div>
+                        <div class="about-feat">
+                            <svg width="22" height="22" viewBox="0 0 24 24"><use href="#icon-money"/></svg>
+                            <span>Możliwość negocjacji ceny</span>
+                        </div>
+                    </div>
+                    <div class="about-stats-row">
+                        <div class="about-stat">
+                            <div class="about-stat-num">500+</div>
+                            <div class="about-stat-label">Klientów</div>
+                        </div>
+                        <div class="about-stat">
+                            <div class="about-stat-num">15+</div>
+                            <div class="about-stat-label">Lat</div>
+                        </div>
+                        <div class="about-stat">
+                            <div class="about-stat-num">100%</div>
+                            <div class="about-stat-label">Sprawdzonych</div>
                         </div>
                     </div>
                 </div>
@@ -259,87 +283,133 @@
         </div>
     </section>
 
-    <!-- Reviews Section -->
-    <section class="reviews-section">
+    <!-- ========== REVIEWS ========== -->
+    <section class="section reviews-section" id="reviews">
+        <img src="images/car-silhouette-dark.png" alt="" class="section-silhouette section-silhouette--reviews" aria-hidden="true">
         <div class="container">
-            <h2 class="section-title">Opinie Klientów</h2>
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Opinie</span>
+                <h2 class="section-title">Klienci o <span class="text-gradient">VM Auto</span></h2>
+                <p class="section-desc">Sprawdź, co mówią o nas osoby, które kupiły u nas samochód</p>
+            </div>
             <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="review-text">"Kupiłam KIA Sportage i jestem bardzo zadowolona. Bardzo miły Pan Mariusz, polecam kupno auta u niego. Jest osobą konkretną, nie obwija w bawełnę co do auta. Super, co się rzadko zdarza."</p>
-                    <p class="review-author">- Łukasz</p>
+                <div class="review-card" data-animate="fade-up" data-delay="0">
+                    <div class="review-top">
+                        <div class="review-stars">
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                        </div>
+                        <svg class="review-quote" width="32" height="32" viewBox="0 0 24 24"><use href="#icon-quote"/></svg>
+                    </div>
+                    <p class="review-text">Kupiłam KIA Sportage i jestem bardzo zadowolona. Bardzo miły Pan Mariusz, polecam kupno auta u niego. Jest osobą konkretną, nie obwija w bawełnę co do auta. Super, co się rzadko zdarza.</p>
+                    <div class="review-author">
+                        <div class="review-avatar">Ł</div>
+                        <div>
+                            <strong>Łukasz</strong>
+                            <span>Weryfikowany zakup</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="review-card">
-                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="review-text">"Kupiliśmy Suzuki Vitara - auto fajnie wyposażone. Pan Mariusz poinformował nas o niewielkiej szkodzie w historii przed zakupem - więc szacun. Auto było po serwisie olejowym. Miesiąc jeździmy i jesteśmy zadowoleni."</p>
-                    <p class="review-author">- Andrzej, Pszczyna</p>
+                <div class="review-card" data-animate="fade-up" data-delay="150">
+                    <div class="review-top">
+                        <div class="review-stars">
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                        </div>
+                        <svg class="review-quote" width="32" height="32" viewBox="0 0 24 24"><use href="#icon-quote"/></svg>
+                    </div>
+                    <p class="review-text">Kupiliśmy Suzuki Vitara — auto fajnie wyposażone. Pan Mariusz poinformował nas o niewielkiej szkodzie w historii przed zakupem — więc szacun. Auto było po serwisie olejowym. Miesiąc jeździmy i jesteśmy zadowoleni.</p>
+                    <div class="review-author">
+                        <div class="review-avatar">A</div>
+                        <div>
+                            <strong>Andrzej</strong>
+                            <span>Pszczyna</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="review-card">
-                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="review-text">"Trafiliśmy tam przypadkiem. Padło na Tucsona Hyundaja. Kontrola na stacji diagnostycznej - mimo późnej godziny i auto kupione. Sprzedawca nawet nam miernik lakieru udostępnił. Autem jeździmy miesiąc i jest ok."</p>
-                    <p class="review-author">- Ryszard</p>
+                <div class="review-card" data-animate="fade-up" data-delay="300">
+                    <div class="review-top">
+                        <div class="review-stars">
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-star"/></svg>
+                        </div>
+                        <svg class="review-quote" width="32" height="32" viewBox="0 0 24 24"><use href="#icon-quote"/></svg>
+                    </div>
+                    <p class="review-text">Trafiliśmy tam przypadkiem. Padło na Tucsona Hyundaja. Kontrola na stacji diagnostycznej — mimo późnej godziny i auto kupione. Sprzedawca nawet nam miernik lakieru udostępnił. Autem jeździmy miesiąc i jest ok.</p>
+                    <div class="review-author">
+                        <div class="review-avatar">R</div>
+                        <div>
+                            <strong>Ryszard</strong>
+                            <span>Weryfikowany zakup</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
+    <!-- ========== CONTACT ========== -->
+    <section class="section contact-section" id="contact">
         <div class="container">
-            <h2 class="section-title">Kontakt</h2>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24">
-                                <use href="#icon-location"/>
-                            </svg>
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Kontakt</span>
+                <h2 class="section-title">Odwiedź <span class="text-gradient">VM Auto</span></h2>
+                <p class="section-desc">Zapraszamy do kontaktu telefonicznego lub osobistego</p>
+            </div>
+            <div class="contact-layout">
+                <div class="contact-cards" data-animate="fade-right">
+                    <div class="contact-card">
+                        <div class="contact-card-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24"><use href="#icon-location"/></svg>
                         </div>
                         <div>
                             <h3>Adres</h3>
-                            <p>Głożyńska 261<br>44-310 Radlin<br>Województwo Śląskie</p>
+                            <p>Głożyńska 261<br>44-310 Radlin<br>woj. Śląskie</p>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24">
-                                <use href="#icon-phone"/>
-                            </svg>
+                    <div class="contact-card">
+                        <div class="contact-card-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
                         </div>
                         <div>
                             <h3>Telefon</h3>
-                            <p><a href="tel:799999100">799 999 100</a></p>
+                            <p><a href="tel:799939100">+48 799 939 100</a></p>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24">
-                                <use href="#icon-email"/>
-                            </svg>
+                    <div class="contact-card">
+                        <div class="contact-card-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24"><use href="#icon-email"/></svg>
                         </div>
                         <div>
                             <h3>Email</h3>
                             <p><a href="mailto:kreccik@gmail.com">kreccik@gmail.com</a></p>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24">
-                                <use href="#icon-clock"/>
-                            </svg>
+                    <div class="contact-card">
+                        <div class="contact-card-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24"><use href="#icon-clock"/></svg>
                         </div>
                         <div>
                             <h3>Godziny otwarcia</h3>
-                            <p>Poniedziałek - Piątek: 9:00 - 18:00<br>Sobota: 9:00 - 15:00<br>Niedziela: Nieczynne</p>
+                            <p>Pon – Pt: 9:00 – 18:00<br>Sobota: 9:00 – 15:00<br>Niedziela: Nieczynne</p>
                         </div>
                     </div>
                 </div>
-                <div class="contact-map">
+                <div class="contact-map-wrap" data-animate="fade-left">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2549.5!2d18.4773!3d50.0571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sG%C5%82o%C5%BCy%C5%84ska%20261%2C%2044-310%20Radlin!5e0!3m2!1spl!2spl!4v1234567890" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2549.5!2d18.4773!3d50.0571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sG%C5%82o%C5%BCy%C5%84ska%20261%2C%2044-310%20Radlin!5e0!3m2!1spl!2spl!4v1234567890"
                         width="100%" 
                         height="100%" 
-                        style="border:0;" 
+                        style="border:0; border-radius: 16px;" 
                         allowfullscreen="" 
                         loading="lazy">
                     </iframe>
@@ -348,49 +418,53 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Silhouette Divider -->
+    <div class="silhouette-divider silhouette-divider--dark">
+        <img src="images/car-silhouette-dark.png" alt="" aria-hidden="true">
+    </div>
+
+    <!-- ========== FOOTER ========== -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <div class="footer-logo-container">
-                        <img src="logo.png" alt="VM Auto Logo" class="footer-logo-img">
-                    </div>
-                    <p>Sprawdzone samochody używane w Radlinie</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/logo-full.png" alt="VM Auto & Caravans" class="footer-logo">
+                    <p>Sprawdzone samochody używane i kampery w Radlinie. Kupujesz bez stresu!</p>
                 </div>
-                <div class="footer-links">
-                    <h4>Szybkie linki</h4>
+                <div class="footer-nav">
+                    <h4>Nawigacja</h4>
                     <ul>
                         <li><a href="#home">Start</a></li>
                         <li><a href="#cars">Oferta</a></li>
                         <li><a href="#about">O nas</a></li>
+                        <li><a href="#reviews">Opinie</a></li>
                         <li><a href="#contact">Kontakt</a></li>
                     </ul>
                 </div>
-                <div class="footer-contact">
-                    <h4>Skontaktuj się</h4>
+                <div class="footer-contact-col">
+                    <h4>Kontakt</h4>
                     <p>
-                        <svg width="20" height="20" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 8px;">
-                            <use href="#icon-phone"/>
-                        </svg>
-                        <a href="tel:799999100">799 999 100</a>
+                        <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
+                        <a href="tel:799939100">+48 799 939 100</a>
                     </p>
                     <p>
-                        <svg width="20" height="20" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 8px;">
-                            <use href="#icon-email"/>
-                        </svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-email"/></svg>
                         <a href="mailto:kreccik@gmail.com">kreccik@gmail.com</a>
+                    </p>
+                    <p>
+                        <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-location"/></svg>
+                        Głożyńska 261, 44-310 Radlin
                     </p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 VM Auto. Wszelkie prawa zastrzeżone. | <a href="admin.html" style="color: rgba(255, 255, 255, 0.5); text-decoration: underline;">Panel Admina</a></p>
+                <p>&copy; 2026 VM Auto & Caravans. Wszelkie prawa zastrzeżone.</p>
+                <a href="admin.html" class="footer-admin">Panel admina</a>
             </div>
         </div>
     </footer>
 
-    <!-- Load cars from Railway API -->
     <script src="js/cars.js"></script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
