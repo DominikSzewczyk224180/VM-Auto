@@ -109,116 +109,58 @@ document.querySelectorAll('[data-animate]').forEach(el => {
     animateObserver.observe(el);
 });
 
-// --- Floating Particles ---
-(function initParticles() {
-    const canvas = document.getElementById('heroParticles');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let w, h;
-    
-    function resize() {
-        w = canvas.width = canvas.offsetWidth;
-        h = canvas.height = canvas.offsetHeight;
-    }
-    
-    resize();
-    window.addEventListener('resize', resize);
-    
-    // Create particles
-    for (let i = 0; i < 40; i++) {
-        particles.push({
-            x: Math.random() * w,
-            y: Math.random() * h,
-            r: Math.random() * 1.5 + 0.3,
-            dx: (Math.random() - 0.5) * 0.3,
-            dy: (Math.random() - 0.5) * 0.2,
-            alpha: Math.random() * 0.3 + 0.05
-        });
-    }
-    
-    function draw() {
-        ctx.clearRect(0, 0, w, h);
-        particles.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-            ctx.fill();
-            
-            p.x += p.dx;
-            p.y += p.dy;
-            
-            if (p.x < 0) p.x = w;
-            if (p.x > w) p.x = 0;
-            if (p.y < 0) p.y = h;
-            if (p.y > h) p.y = 0;
-        });
-        
-        // Draw subtle connecting lines
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 150) {
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(255,255,255,${0.03 * (1 - dist / 150)})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.stroke();
-                }
-            }
-        }
-        
-        requestAnimationFrame(draw);
-    }
-    
-    draw();
-})();
-
 // --- Counter Animation ---
 function animateCounters() {
     document.querySelectorAll('[data-count]').forEach(el => {
-        const target = parseInt(el.dataset.count);
-        const suffix = el.querySelector('span');
-        const suffixText = suffix ? suffix.textContent : '';
-        const duration = 2000;
-        const start = performance.now();
+        if (el.dataset.counted) return; // already animated
+        el.dataset.counted = '1';
         
-        function update(now) {
-            const elapsed = now - start;
+        const target = parseInt(el.dataset.count);
+        const span = el.querySelector('span');
+        const suffixText = span ? span.textContent : '';
+        const duration = 2200;
+        const startTime = Date.now();
+        
+        function tick() {
+            const elapsed = Date.now() - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            // Ease out cubic
             const eased = 1 - Math.pow(1 - progress, 3);
             const current = Math.round(eased * target);
             
-            el.textContent = current;
-            if (suffixText) {
-                const s = document.createElement('span');
-                s.textContent = suffixText;
-                el.appendChild(s);
-            }
+            // Set text content safely
+            el.innerHTML = current + (suffixText ? '<span>' + suffixText + '</span>' : '');
             
-            if (progress < 1) requestAnimationFrame(update);
+            if (progress < 1) {
+                requestAnimationFrame(tick);
+            }
         }
         
-        requestAnimationFrame(update);
+        // Start from 0
+        el.innerHTML = '0' + (suffixText ? '<span>' + suffixText + '</span>' : '');
+        requestAnimationFrame(tick);
     });
 }
 
-// Trigger counters when hero stat cards come into view
-const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            animateCounters();
-            counterObserver.disconnect();
-        }
-    });
-}, { threshold: 0.3 });
-
+// Fire counters: try observer first, fallback to timeout
 const heroCards = document.querySelector('.hero-card-stack');
-if (heroCards) counterObserver.observe(heroCards);
+if (heroCards) {
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(animateCounters, 300);
+                counterObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.1 });
+    counterObserver.observe(heroCards);
+    
+    // Fallback — if observer doesn't fire within 2s, just animate
+    setTimeout(() => {
+        if (!document.querySelector('[data-counted]')) {
+            animateCounters();
+        }
+    }, 2000);
+}
 
 // --- Parallax on scroll ---
 let rafScroll;

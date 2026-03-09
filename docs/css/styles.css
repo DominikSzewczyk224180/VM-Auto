@@ -461,12 +461,12 @@ ul { list-style: none; }
 
 .hero-bg-silhouette {
     position: absolute;
-    bottom: 8%;
+    bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
-    width: 60%;
-    max-width: 800px;
-    opacity: 0.03;
+    width: 80%;
+    max-width: 1100px;
+    opacity: 0.05;
     pointer-events: none;
     filter: brightness(4);
     z-index: 1;
@@ -475,23 +475,15 @@ ul { list-style: none; }
 /* Second silhouette — bigger, centered, the main decorative one */
 .hero-bg-silhouette-center {
     position: absolute;
-    top: 50%;
+    top: 48%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 55%;
-    max-width: 750px;
-    opacity: 0.045;
+    width: 70%;
+    max-width: 950px;
+    opacity: 0.07;
     pointer-events: none;
     filter: brightness(4);
     z-index: 1;
-}
-
-/* Floating particles canvas */
-.hero-particles {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
 }
 
 /* Silhouette Divider between sections */
@@ -555,7 +547,7 @@ ul { list-style: none; }
 }
 
 .hero-brand-icon {
-    height: 40px;
+    height: 50px;
     width: auto;
     opacity: 0.35;
     filter: brightness(5);
@@ -570,7 +562,7 @@ ul { list-style: none; }
 
 .hero-brand-vm {
     font-family: 'Outfit', sans-serif;
-    font-size: 2.8rem;
+    font-size: 3.8rem;
     font-weight: 900;
     color: #FFFFFF;
     letter-spacing: -0.03em;
@@ -578,7 +570,7 @@ ul { list-style: none; }
 
 .hero-brand-rest {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 400;
     color: rgba(255,255,255,0.4);
     letter-spacing: 0.04em;
@@ -614,12 +606,12 @@ ul { list-style: none; }
 /* ---- Hero Title — mixed typography ---- */
 .hero-title {
     font-family: 'Outfit', sans-serif;
-    font-size: clamp(3rem, 6vw, 5rem);
+    font-size: clamp(3.5rem, 7vw, 6rem);
     font-weight: 800;
     color: var(--text-inverse);
-    margin-bottom: 28px;
+    margin-bottom: 32px;
     letter-spacing: -0.03em;
-    line-height: 1.0;
+    line-height: 0.95;
 }
 
 .hero-title-accent {
@@ -669,19 +661,19 @@ ul { list-style: none; }
 .hero-card-stack {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 380px;
+    max-width: 320px;
 }
 
 .hero-stat-card {
     background: rgba(255,255,255,0.025);
     border: 1px solid rgba(255,255,255,0.05);
     backdrop-filter: blur(20px);
-    border-radius: var(--radius-md);
-    padding: 28px 32px;
+    border-radius: var(--radius-sm);
+    padding: 18px 24px;
     transition: all 0.5s var(--ease-out);
     animation: card-float 5s ease-in-out infinite alternate;
     animation-delay: calc(var(--i) * 0.8s);
@@ -700,11 +692,11 @@ ul { list-style: none; }
 
 .hsc-number {
     font-family: 'Outfit', sans-serif;
-    font-size: 2.6rem;
+    font-size: 1.8rem;
     font-weight: 900;
     color: #FFFFFF;
     line-height: 1;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
     letter-spacing: -0.02em;
 }
 
@@ -715,8 +707,8 @@ ul { list-style: none; }
 }
 
 .hsc-label {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.35);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
     font-weight: 500;
     letter-spacing: 0.03em;
     text-transform: uppercase;
@@ -1714,23 +1706,23 @@ ul { list-style: none; }
     }
 
     .hero-brand { flex-wrap: wrap; gap: 10px; }
-    .hero-brand-vm { font-size: 2rem; }
+    .hero-brand-vm { font-size: 2.4rem; }
     .hero-brand-rest { font-size: 1.1rem; }
-    .hero-brand-icon { height: 28px; }
+    .hero-brand-icon { height: 32px; }
 
     .hero-title {
-        font-size: clamp(2.4rem, 9vw, 3.5rem);
+        font-size: clamp(2.6rem, 10vw, 4rem);
     }
 
-    .hero-bg-silhouette-center { width: 80%; opacity: 0.03; }
+    .hero-bg-silhouette-center { width: 90%; opacity: 0.05; }
 
     .hero-card-stack {
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
     }
 
-    .hero-stat-card { padding: 20px 24px; }
-    .hsc-number { font-size: 2rem; }
+    .hero-stat-card { padding: 14px 18px; }
+    .hsc-number { font-size: 1.5rem; }
 
     .trust-items {
         grid-template-columns: 1fr;
