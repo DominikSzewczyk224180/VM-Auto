@@ -224,32 +224,24 @@
 
     <!-- ========== ABOUT SECTION ========== -->
     <section class="section about-section" id="about">
+        <div class="about-bg-accent"></div>
         <div class="container">
-            <div class="about-layout">
-                <div class="about-left" data-animate="fade-right">
-                    <div class="about-carousel-wrap">
-                        <div class="about-carousel">
-                            <div class="carousel-track" id="aboutCarousel">
-                                <img src="images/hyundai-ioniq.png" alt="Hyundai Ioniq" class="carousel-image">
-                                <img src="images/kia-sportage.png" alt="Kia Sportage" class="carousel-image">
-                                <img src="images/jeep-renegade.png" alt="Jeep Renegade" class="carousel-image">
-                                <img src="images/dethleffs-camper.png" alt="Dethleffs Camper" class="carousel-image">
-                            </div>
-                            <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Poprzedni">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-                            </button>
-                            <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Następny">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-                            </button>
-                            <div class="carousel-dots" id="carouselDots"></div>
-                        </div>
+            <!-- Owner Showcase -->
+            <div class="about-owner-block" data-animate="fade-up">
+                <div class="about-owner-visual">
+                    <div class="owner-photo-frame">
+                        <div class="owner-photo-glow"></div>
+                        <img src="images/owner-web.png" alt="Mariusz - właściciel VM Auto & Caravans" class="owner-photo">
+                        <img src="images/car-silhouette-blue.png" alt="" class="owner-silhouette-deco" aria-hidden="true">
                     </div>
                 </div>
-                <div class="about-right" data-animate="fade-left">
-                    <span class="section-tag">O Nas</span>
-                    <h2 class="section-title section-title--left">VM Auto <span class="text-accent">&</span> Caravans</h2>
-                    <p class="about-desc">VM Auto to komis samochodowy działający w Radlinie, specjalizujący się w sprzedaży sprawdzonych samochodów używanych i kamperów. Nasza oferta obejmuje szeroką gamę marek, ze szczególnym naciskiem na jakość i uczciwość.</p>
-                    <p class="about-desc">Stawiamy na transparentność — informujemy o pełnej historii każdego pojazdu. Każde auto przed sprzedażą przechodzi kontrolę techniczną i serwis olejowy.</p>
+                <div class="about-owner-text">
+                    <span class="section-tag">Właściciel</span>
+                    <h2 class="section-title section-title--left">Mariusz</h2>
+                    <p class="owner-role">Założyciel VM Auto <span class="text-accent">&</span> Caravans</p>
+                    <blockquote class="owner-quote">
+                        „Nie owijam w bawełnę — pokazuję pojazdy takimi, jakie są. Każdy klient zasługuje na uczciwą informację i auto, które nie sprawi problemów."
+                    </blockquote>
                     <div class="about-features-list">
                         <div class="about-feat">
                             <svg width="22" height="22" viewBox="0 0 24 24"><use href="#icon-deal"/></svg>
@@ -277,6 +269,32 @@
                             <div class="about-stat-num">100%</div>
                             <div class="about-stat-label">Sprawdzonych</div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Description + Carousel -->
+            <div class="about-bottom-row">
+                <div class="about-info-card" data-animate="fade-right">
+                    <h3>O VM Auto & Caravans</h3>
+                    <p>Komis samochodowy działający w Radlinie, specjalizujący się w sprzedaży sprawdzonych samochodów używanych i kamperów. Nasza oferta obejmuje szeroką gamę marek, ze szczególnym naciskiem na jakość i uczciwość.</p>
+                    <p>Stawiamy na transparentność — informujemy o pełnej historii każdego pojazdu. Każde auto przed sprzedażą przechodzi kontrolę techniczną i serwis olejowy.</p>
+                </div>
+                <div class="about-carousel-wrap" data-animate="fade-left">
+                    <div class="about-carousel">
+                        <div class="carousel-track" id="aboutCarousel">
+                            <img src="images/hyundai-ioniq.png" alt="Hyundai Ioniq" class="carousel-image">
+                            <img src="images/kia-sportage.png" alt="Kia Sportage" class="carousel-image">
+                            <img src="images/jeep-renegade.png" alt="Jeep Renegade" class="carousel-image">
+                            <img src="images/dethleffs-camper.png" alt="Dethleffs Camper" class="carousel-image">
+                        </div>
+                        <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Poprzedni">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Następny">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                        </button>
+                        <div class="carousel-dots" id="carouselDots"></div>
                     </div>
                 </div>
             </div>
