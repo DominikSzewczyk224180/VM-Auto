@@ -519,94 +519,115 @@ ul { list-style: none; }
 
 .hero-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.1fr 0.9fr;
     gap: 60px;
     align-items: center;
 }
 
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 20px;
-    background: rgba(56,182,216,0.12);
-    border: 1px solid rgba(56,182,216,0.25);
-    color: var(--blue-200);
-    border-radius: var(--radius-full);
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 500;
-    margin-bottom: 28px;
-    backdrop-filter: blur(8px);
-}
-
-/* Hero brand / wordmark */
+/* ---- Hero Brand — the big "VM Auto & Caravans" ---- */
 .hero-brand {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding: 8px 18px 8px 12px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius-full);
+    gap: 16px;
+    margin-bottom: 28px;
 }
 
 .hero-brand-icon {
-    height: 18px;
+    height: 32px;
     width: auto;
-    opacity: 0.4;
-    filter: brightness(4);
+    opacity: 0.35;
+    filter: brightness(5);
 }
 
-.hero-brand-name {
+.hero-brand-text {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    line-height: 1;
+}
+
+.hero-brand-vm {
     font-family: 'Outfit', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: rgba(255,255,255,0.7);
-    letter-spacing: 0.02em;
-}
-
-.hero-brand-name span {
-    color: rgba(255,255,255,0.35);
-    font-weight: 400;
-}
-
-.hero-badge-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--blue-400);
-    animation: blink 2s ease-in-out infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-
-.hero-title {
-    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-size: 2rem;
     font-weight: 900;
-    color: var(--text-inverse);
-    margin-bottom: 24px;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
+    color: #FFFFFF;
+    letter-spacing: -0.03em;
 }
 
-.hero-title .text-gradient {
-    background: linear-gradient(135deg, #FFFFFF 0%, #9CA0A4 100%);
+.hero-brand-rest {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.hero-brand-rest em {
+    font-style: normal;
+    color: rgba(255,255,255,0.2);
+    font-weight: 300;
+}
+
+/* ---- Thin decorative divider ---- */
+.hero-divider {
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.5), transparent);
+    margin-bottom: 28px;
+}
+
+/* ---- Decorative diagonal line across hero ---- */
+.hero-line-deco {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 42%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent 10%, rgba(255,255,255,0.04) 40%, rgba(255,255,255,0.04) 60%, transparent 90%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ---- Hero Title — mixed typography ---- */
+.hero-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+    font-weight: 800;
+    color: var(--text-inverse);
+    margin-bottom: 28px;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+}
+
+.hero-title-accent {
+    display: inline-block;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    background: linear-gradient(135deg, #FFFFFF 0%, #6B6E71 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    font-size: 1.15em;
+}
+
+.hero-title-sub {
+    display: block;
+    font-size: 0.55em;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 8px;
 }
 
 .hero-desc {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.65);
+    font-size: 1rem;
+    color: rgba(255,255,255,0.45);
     line-height: 1.8;
-    margin-bottom: 36px;
-    max-width: 520px;
+    margin-bottom: 40px;
+    max-width: 480px;
 }
 
 .hero-actions {
@@ -615,7 +636,7 @@ ul { list-style: none; }
     flex-wrap: wrap;
 }
 
-/* Hero visual — stat cards */
+/* ---- Hero Visual — stat cards ---- */
 .hero-visual {
     position: relative;
     display: flex;
@@ -623,62 +644,60 @@ ul { list-style: none; }
     justify-content: center;
 }
 
-.hero-silhouette {
-    position: absolute;
-    width: 140%;
-    max-width: none;
-    opacity: 0.08;
-    right: -20%;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
-
 .hero-card-stack {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 360px;
+    max-width: 380px;
 }
 
 .hero-stat-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.05);
     backdrop-filter: blur(20px);
     border-radius: var(--radius-md);
     padding: 28px 32px;
     transition: all 0.5s var(--ease-out);
-    animation: card-float 4s ease-in-out infinite alternate;
-    animation-delay: calc(var(--i) * 0.7s);
+    animation: card-float 5s ease-in-out infinite alternate;
+    animation-delay: calc(var(--i) * 0.8s);
 }
 
 .hero-stat-card:hover {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(255,255,255,0.12);
-    transform: translateX(-8px);
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+    transform: translateX(-6px);
 }
 
 @keyframes card-float {
     0% { transform: translateY(0); }
-    100% { transform: translateY(-6px); }
+    100% { transform: translateY(-5px); }
 }
 
 .hsc-number {
     font-family: 'Outfit', sans-serif;
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     font-weight: 900;
     color: #FFFFFF;
     line-height: 1;
     margin-bottom: 6px;
+    letter-spacing: -0.02em;
+}
+
+.hsc-number span {
+    font-weight: 300;
+    opacity: 0.4;
+    font-size: 0.7em;
 }
 
 .hsc-label {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.55);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.35);
     font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
 }
 
 /* Scroll indicator */
@@ -1578,16 +1597,17 @@ ul { list-style: none; }
         text-align: center;
     }
 
+    .hero-brand { justify-content: center; }
+    .hero-divider { margin-inline: auto; }
     .hero-desc { margin-inline: auto; }
     .hero-actions { justify-content: center; }
+    .hero-line-deco { display: none; }
 
     .hero-visual { order: -1; }
     .hero-card-stack {
         flex-direction: row;
         max-width: none;
     }
-
-    .hero-silhouette { display: none; }
 
     .trust-items {
         grid-template-columns: repeat(2, 1fr);
@@ -1671,8 +1691,13 @@ ul { list-style: none; }
         padding: 120px 0 64px;
     }
 
+    .hero-brand { flex-wrap: wrap; gap: 10px; }
+    .hero-brand-vm { font-size: 1.5rem; }
+    .hero-brand-rest { font-size: 0.9rem; }
+    .hero-brand-icon { height: 22px; }
+
     .hero-title {
-        font-size: clamp(1.8rem, 7vw, 2.8rem);
+        font-size: clamp(2rem, 8vw, 3rem);
     }
 
     .hero-card-stack {
@@ -1681,7 +1706,7 @@ ul { list-style: none; }
     }
 
     .hero-stat-card { padding: 20px 24px; }
-    .hsc-number { font-size: 1.8rem; }
+    .hsc-number { font-size: 2rem; }
 
     .trust-items {
         grid-template-columns: 1fr;
