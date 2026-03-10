@@ -196,9 +196,9 @@ document.querySelectorAll('.btn').forEach(btn => {
         const rect = ownerSection.getBoundingClientRect();
         const windowH = window.innerHeight;
         
-        // Start when section top hits bottom of screen
-        // End much later — section top must reach very top of viewport
-        const startPoint = windowH;
+        // Start when section top reaches 60% of viewport (already partially visible)
+        // End when section top goes above viewport
+        const startPoint = windowH * 0.6;
         const endPoint = -windowH * 0.15; // section top must go above viewport top
         
         let progress = (startPoint - rect.top) / (startPoint - endPoint);
