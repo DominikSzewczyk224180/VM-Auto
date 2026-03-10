@@ -198,10 +198,10 @@ function formatNumber(num) {
     return new Intl.NumberFormat('pl-PL').format(num);
 }
 
-// Build car marquee in hero
+// Build vertical car scroll in hero
 async function buildMarquee() {
-    const track = document.getElementById('marqueeTrack');
-    if (!track) return;
+    const container = document.getElementById('heroCarScroll');
+    if (!container) return;
     
     let cars = [];
     
@@ -234,19 +234,19 @@ async function buildMarquee() {
     }
     
     if (cars.length === 0) {
-        track.closest('.hero-marquee').style.display = 'none';
+        container.closest('.hero-right').style.display = 'none';
         return;
     }
     
-    // Duplicate to fill marquee (need at least enough for seamless loop)
-    const items = [...cars, ...cars, ...cars, ...cars];
+    // Duplicate enough for seamless vertical loop
+    const items = [...cars, ...cars, ...cars, ...cars, ...cars];
     
-    track.innerHTML = items.map(car => `
-        <a href="${car.link}" target="_blank" rel="noopener" class="marquee-card">
+    container.innerHTML = items.map(car => `
+        <a href="${car.link}" target="_blank" rel="noopener" class="scroll-car-card">
             ${car.image ? `<img src="${car.image}" alt="${car.title}" loading="lazy">` : ''}
-            <div class="marquee-card-info">
-                <div class="marquee-card-title">${car.title}</div>
-                <div class="marquee-card-price">${car.price}</div>
+            <div class="scroll-car-info">
+                <div class="scroll-car-title">${car.title}</div>
+                <div class="scroll-car-price">${car.price}</div>
             </div>
         </a>
     `).join('');
