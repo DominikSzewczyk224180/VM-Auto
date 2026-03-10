@@ -187,8 +187,8 @@ document.querySelectorAll('.btn').forEach(btn => {
     const ownerSection = document.querySelector('.owner-section');
     if (!ownerFrame || !ownerSection) return;
     
-    // Set initial state — fully off-screen left
-    ownerFrame.style.transform = 'translateX(-110%)';
+    // Set initial state — way off-screen left
+    ownerFrame.style.transform = 'translateX(-150%)';
     ownerFrame.style.opacity = '0';
     ownerFrame.style.willChange = 'transform, opacity';
     
@@ -196,25 +196,21 @@ document.querySelectorAll('.btn').forEach(btn => {
         const rect = ownerSection.getBoundingClientRect();
         const windowH = window.innerHeight;
         
-        // Start when section bottom edge appears at viewport bottom
-        // End when section bottom edge reaches middle of viewport
-        const sectionBottom = rect.bottom;
-        const sectionTop = rect.top;
+        // Start when section top hits bottom of screen
+        // End when section top reaches 10% from top (almost fully scrolled in)
+        const startPoint = windowH;
+        const endPoint = windowH * 0.1;
         
-        // Progress: 0 = section just appeared at bottom, 1 = section top at viewport center
-        const startPoint = windowH; // section top hits bottom of screen
-        const endPoint = windowH * 0.3; // section top at 30% from top
-        
-        let progress = (startPoint - sectionTop) / (startPoint - endPoint);
+        let progress = (startPoint - rect.top) / (startPoint - endPoint);
         progress = Math.max(0, Math.min(1, progress));
         
-        // Ease out cubic
-        const eased = 1 - Math.pow(1 - progress, 3);
+        // Ease out quart — very slow finish
+        const eased = 1 - Math.pow(1 - progress, 4);
         
-        // Translate from -110% to 0
-        const translateX = -110 * (1 - eased);
+        // Translate from -150% to 0
+        const translateX = -150 * (1 - eased);
         ownerFrame.style.transform = `translateX(${translateX}%)`;
-        ownerFrame.style.opacity = eased;
+        ownerFrame.style.opacity = Math.min(1, eased * 1.5);
     }
     
     // Run on every scroll frame
