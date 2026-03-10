@@ -197,15 +197,15 @@ document.querySelectorAll('.btn').forEach(btn => {
         const windowH = window.innerHeight;
         
         // Start when section top hits bottom of screen
-        // End when section top reaches 10% from top (almost fully scrolled in)
+        // End much later — section top must reach very top of viewport
         const startPoint = windowH;
-        const endPoint = windowH * 0.1;
+        const endPoint = -windowH * 0.15; // section top must go above viewport top
         
         let progress = (startPoint - rect.top) / (startPoint - endPoint);
         progress = Math.max(0, Math.min(1, progress));
         
-        // Ease out quart — very slow finish
-        const eased = 1 - Math.pow(1 - progress, 4);
+        // Ease out quint — extremely slow finish
+        const eased = 1 - Math.pow(1 - progress, 5);
         
         // Translate from -150% to 0
         const translateX = -150 * (1 - eased);
