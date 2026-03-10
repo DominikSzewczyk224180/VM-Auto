@@ -257,6 +257,14 @@
                     <textarea id="edit_description" name="description" rows="4"></textarea>
                 </div>
 
+                <!-- Image Edit Section -->
+                <div class="form-group full-width">
+                    <label>Zdjęcia samochodu</label>
+                    <div id="editImagePreview" class="image-preview-grid"></div>
+                    <button type="button" class="btn btn-secondary" id="editUploadWidget">Dodaj zdjęcia</button>
+                    <input type="hidden" id="edit_images" name="images">
+                </div>
+
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
                     <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Anuluj</button>

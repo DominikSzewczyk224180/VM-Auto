@@ -101,6 +101,31 @@ function initializeCloudinaryWidget() {
     uploadButton.addEventListener('click', function() {
         myWidget.open();
     }, false);
+
+    // Edit modal upload widget
+    const editUploadBtn = document.getElementById('editUploadWidget');
+    if (editUploadBtn) {
+        const editWidget = cloudinary.createUploadWidget({
+            cloudName: CLOUDINARY_CLOUD_NAME,
+            uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+            sources: ['local', 'url', 'camera'],
+            multiple: true,
+            maxFiles: 10,
+            clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+            maxFileSize: 5000000,
+            folder: 'vm-auto',
+            resourceType: 'image'
+        }, (error, result) => {
+            if (!error && result && result.event === "success") {
+                editImages.push(result.info.secure_url);
+                updateEditImagePreview();
+            }
+        });
+
+        editUploadBtn.addEventListener('click', function() {
+            editWidget.open();
+        }, false);
+    }
 }
 
 // Update image preview
@@ -321,6 +346,9 @@ function filterCars() {
     displayCars(filtered);
 }
 
+// Edit images array
+let editImages = [];
+
 // Open Edit Modal
 function openEditModal(carId) {
     const car = allCars.find(c => c._id === carId);
@@ -335,12 +363,35 @@ function openEditModal(carId) {
     document.getElementById('edit_fuel_type').value = car.fuel_type || '';
     document.getElementById('edit_description').value = car.description || '';
 
+    // Load existing images
+    editImages = car.images ? [...car.images] : [];
+    updateEditImagePreview();
+
     document.getElementById('editModal').classList.add('active');
+}
+
+// Update edit image preview
+function updateEditImagePreview() {
+    const container = document.getElementById('editImagePreview');
+    container.innerHTML = editImages.map((url, index) => `
+        <div class="image-preview-item">
+            <img src="${url}" alt="Zdjęcie ${index + 1}">
+            <button type="button" class="remove-image" onclick="removeEditImage(${index})">×</button>
+        </div>
+    `).join('');
+    document.getElementById('edit_images').value = JSON.stringify(editImages);
+}
+
+// Remove edit image
+function removeEditImage(index) {
+    editImages.splice(index, 1);
+    updateEditImagePreview();
 }
 
 // Close Edit Modal
 function closeEditModal() {
     document.getElementById('editModal').classList.remove('active');
+    editImages = [];
 }
 
 // Handle Edit Car
@@ -357,7 +408,8 @@ async function handleEditCar(e) {
         price: parseFloat(formData.get('price')),
         mileage: parseInt(formData.get('mileage')) || 0,
         fuel_type: formData.get('fuel_type'),
-        description: formData.get('description')
+        description: formData.get('description'),
+        images: editImages
     };
 
     showLoading();

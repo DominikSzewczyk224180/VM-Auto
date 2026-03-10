@@ -493,15 +493,14 @@ ul { list-style: none; }
     font-size: clamp(3.2rem, 7vw, 6.5rem);
     font-weight: 800; color: #FFF;
     letter-spacing: -0.03em;
-    line-height: 1.25;
+    line-height: 1.3;
     margin-bottom: 8px;
-    padding-bottom: 6px;
-    overflow: visible;
+    padding: 8px 0;
 }
 .hero-title-accent {
     font-style: italic; font-weight: 300;
-    background: linear-gradient(135deg, #FFF 20%, #556 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    color: rgba(255,255,255,0.55);
+    -webkit-text-fill-color: rgba(255,255,255,0.55);
 }
 
 .hero-subtitle {
@@ -819,7 +818,7 @@ ul { list-style: none; }
     left: 0;
     right: 0;
     height: 55%;
-    background: linear-gradient(170deg, #000000 0%, #0A0F14 100%);
+    background: linear-gradient(170deg, #061020 0%, #0E1E38 50%, #0A1628 100%);
     z-index: 0;
 }
 
@@ -1199,11 +1198,11 @@ ul { list-style: none; }
 }
 
 .review-stars svg {
-    fill: rgba(255,255,255,0.7);
+    fill: #FFFFFF;
 }
 
 .review-quote {
-    fill: rgba(255,255,255,0.08);
+    fill: rgba(255,255,255,0.2);
 }
 
 .review-text {
@@ -1349,31 +1348,10 @@ ul { list-style: none; }
     padding-bottom: 48px;
 }
 
-.footer-logo-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.footer-logo-icon {
-    height: 24px;
+.footer-logo-img {
+    height: 80px;
     width: auto;
-    filter: brightness(3);
-    opacity: 0.6;
-}
-
-.footer-logo-text {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--text-inverse);
-    letter-spacing: -0.01em;
-}
-
-.footer-logo-text span {
-    font-weight: 400;
-    color: var(--silver-500);
+    margin-bottom: 20px;
 }
 
 .footer-brand p {
