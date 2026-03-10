@@ -854,26 +854,33 @@ ul { list-style: none; }
    ============================================ */
 .owner-section {
     background: linear-gradient(170deg, #061020 0%, #0E1E38 50%, #0A1628 100%);
-    overflow: hidden;
+    overflow: visible;
     position: relative;
+    padding-top: 60px;
+    padding-bottom: 80px;
+    z-index: 1;
 }
 
 /* Owner block */
 .about-owner-block {
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 64px;
+    grid-template-columns: 420px 1fr;
+    gap: 48px;
     align-items: end;
+    min-height: 580px;
 }
 
 .about-owner-visual {
     position: relative;
-    align-self: end;
+    align-self: stretch;
+    display: flex;
+    align-items: flex-end;
+    margin-top: -100px;
 }
 
 .owner-photo-frame {
     position: relative;
-    width: 380px;
+    width: 100%;
 }
 
 .owner-photo {
@@ -882,18 +889,18 @@ ul { list-style: none; }
     width: 100%;
     height: auto;
     display: block;
-    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
 }
 
-/* Slide-in from left animation */
+/* Slide-in from left animation — dramatic entrance */
 [data-animate="slide-in-left"] {
     opacity: 0;
-    transform: translateX(-150px);
-    transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+    transform: translateX(-200px) scale(0.95);
+    transition: opacity 1.2s var(--ease-out), transform 1.2s var(--ease-out);
 }
 [data-animate="slide-in-left"].animated {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
 }
 
 .owner-photo-glow {
@@ -1525,14 +1532,16 @@ ul { list-style: none; }
         grid-template-columns: 1fr;
         gap: 0;
         text-align: center;
+        min-height: auto;
     }
 
     .about-owner-visual {
         display: flex;
         justify-content: center;
+        margin-top: 0;
     }
 
-    .owner-photo-frame { width: 280px; }
+    .owner-photo-frame { width: 300px; }
 
     .about-owner-text .section-title { text-align: center; }
     .about-owner-text .section-tag { display: block; text-align: center; }
@@ -1617,7 +1626,8 @@ ul { list-style: none; }
 
     .trust-item { padding: 16px; }
 
-    .owner-photo-frame { width: 220px; }
+    .owner-photo-frame { width: 240px; }
+    .about-owner-visual { margin-top: 0; }
     .about-info-card { padding: 28px; }
     .about-bottom-row { grid-template-columns: 1fr; }
 
