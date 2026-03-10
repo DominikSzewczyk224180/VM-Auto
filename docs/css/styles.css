@@ -127,7 +127,8 @@ ul { list-style: none; }
 }
 
 .text-accent {
-    color: var(--accent-500);
+    color: inherit;
+    opacity: 0.5;
 }
 
 .section {
@@ -862,7 +863,7 @@ ul { list-style: none; }
     top: 0;
     left: 0;
     right: 0;
-    height: 55%;
+    height: 75%;
     background: linear-gradient(170deg, #061020 0%, #0E1E38 50%, #0A1628 100%);
     z-index: 0;
 }
@@ -899,6 +900,17 @@ ul { list-style: none; }
     height: auto;
     display: block;
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+}
+
+/* Owner slide-in animation from right */
+[data-animate="slide-in-right"] {
+    opacity: 0;
+    transform: translateX(120px);
+    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+[data-animate="slide-in-right"].animated {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .owner-photo-glow {
@@ -1617,7 +1629,7 @@ ul { list-style: none; }
     .trust-item { padding: 16px; }
 
     .owner-photo-frame { width: 220px; }
-    .about-bg-accent { height: 45%; }
+    .about-bg-accent { height: 60%; }
     .about-owner-block { padding-bottom: 40px; }
     .about-info-card { padding: 28px; }
 

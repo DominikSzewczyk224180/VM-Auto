@@ -855,7 +855,7 @@ body {
 
 /* Image management in edit modal */
 .image-preview-item.is-main {
-    border: 2px solid #2A98BD;
+    border: 3px solid #2A98BD;
 }
 
 .main-badge {
@@ -864,31 +864,32 @@ body {
     left: 6px;
     background: #2A98BD;
     color: #fff;
-    font-size: 0.7rem;
-    padding: 2px 8px;
+    font-size: 0.75rem;
+    padding: 4px 10px;
     border-radius: 4px;
     font-weight: 600;
+    z-index: 2;
 }
 
 .set-main-btn {
     position: absolute;
-    bottom: 6px;
-    left: 6px;
-    background: rgba(0,0,0,0.7);
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2A98BD;
     color: #fff;
     border: none;
-    font-size: 0.65rem;
-    padding: 3px 8px;
-    border-radius: 4px;
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 6px;
     cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-.image-preview-item:hover .set-main-btn {
     opacity: 1;
+    font-weight: 600;
+    white-space: nowrap;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .set-main-btn:hover {
-    background: #2A98BD;
+    background: #1B3A6B;
 }
