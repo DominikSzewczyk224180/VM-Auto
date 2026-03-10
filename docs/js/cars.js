@@ -45,11 +45,24 @@ async function loadCarsForMainPage() {
 
 // Display cars from API
 function displayCarsFromAPI(cars, container) {
-    container.innerHTML = cars.map(car => `
+    container.innerHTML = cars.map((car, ci) => `
         <div class="car-card" data-animate="fade-up">
             ${car.images && car.images.length > 0 ? `
-                <div class="car-image-wrap">
-                    <img src="${car.images[0]}" alt="${car.brand} ${car.model}" class="car-image" loading="lazy">
+                <div class="car-image-wrap" id="carGal${ci}">
+                    ${car.images.map((img, ii) => `
+                        <img src="${img}" alt="${car.brand} ${car.model}" class="car-image ${ii === 0 ? 'active' : ''}" data-idx="${ii}" loading="lazy">
+                    `).join('')}
+                    ${car.images.length > 1 ? `
+                        <button class="car-gal-btn car-gal-prev" onclick="galNav(${ci},-1)" aria-label="Poprzednie">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <button class="car-gal-btn car-gal-next" onclick="galNav(${ci},1)" aria-label="Następne">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                        </button>
+                        <div class="car-gal-dots">
+                            ${car.images.map((_, ii) => `<span class="car-gal-dot ${ii === 0 ? 'active' : ''}" data-idx="${ii}"></span>`).join('')}
+                        </div>
+                    ` : ''}
                 </div>
             ` : `
                 <div class="car-image-placeholder">Brak zdjęcia</div>
@@ -91,6 +104,20 @@ function displayCarsFromAPI(cars, container) {
     `).join('');
     
     observeNewCards(container);
+}
+
+// Gallery navigation
+function galNav(cardIdx, dir) {
+    const wrap = document.getElementById('carGal' + cardIdx);
+    if (!wrap) return;
+    const imgs = wrap.querySelectorAll('.car-image');
+    const dots = wrap.querySelectorAll('.car-gal-dot');
+    let current = [...imgs].findIndex(i => i.classList.contains('active'));
+    imgs[current].classList.remove('active');
+    if (dots[current]) dots[current].classList.remove('active');
+    current = (current + dir + imgs.length) % imgs.length;
+    imgs[current].classList.add('active');
+    if (dots[current]) dots[current].classList.add('active');
 }
 
 // Display cars from local JSON

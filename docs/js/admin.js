@@ -374,12 +374,20 @@ function openEditModal(carId) {
 function updateEditImagePreview() {
     const container = document.getElementById('editImagePreview');
     container.innerHTML = editImages.map((url, index) => `
-        <div class="image-preview-item">
+        <div class="image-preview-item ${index === 0 ? 'is-main' : ''}">
             <img src="${url}" alt="Zdjęcie ${index + 1}">
+            ${index === 0 ? '<span class="main-badge">Główne</span>' : `<button type="button" class="set-main-btn" onclick="setMainImage(${index})">★ Ustaw jako główne</button>`}
             <button type="button" class="remove-image" onclick="removeEditImage(${index})">×</button>
         </div>
     `).join('');
     document.getElementById('edit_images').value = JSON.stringify(editImages);
+}
+
+// Set image as main (move to first position)
+function setMainImage(index) {
+    const img = editImages.splice(index, 1)[0];
+    editImages.unshift(img);
+    updateEditImagePreview();
 }
 
 // Remove edit image

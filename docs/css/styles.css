@@ -725,6 +725,51 @@ ul { list-style: none; }
     position: relative;
 }
 
+/* Gallery: only active image shows */
+.car-image-wrap .car-image { display: none; }
+.car-image-wrap .car-image.active { display: block; }
+
+.car-gal-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 5;
+}
+.car-image-wrap:hover .car-gal-btn { opacity: 1; }
+.car-gal-btn:hover { background: rgba(0,0,0,0.75); }
+.car-gal-btn svg { stroke: #fff; }
+.car-gal-prev { left: 8px; }
+.car-gal-next { right: 8px; }
+
+.car-gal-dots {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    z-index: 5;
+}
+.car-gal-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transition: all 0.3s;
+}
+.car-gal-dot.active {
+    background: #fff;
+    width: 16px;
+    border-radius: 3px;
+}
+
 .car-content {
     padding: 24px;
 }
@@ -833,11 +878,13 @@ ul { list-style: none; }
     grid-template-columns: auto 1fr;
     gap: 64px;
     align-items: end;
-    padding-bottom: 64px;
+    padding-bottom: 0;
 }
 
 .about-owner-visual {
     position: relative;
+    align-self: end;
+    margin-bottom: -1px;
 }
 
 .owner-photo-frame {
@@ -850,6 +897,7 @@ ul { list-style: none; }
     z-index: 2;
     width: 100%;
     height: auto;
+    display: block;
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
 }
 
@@ -1199,10 +1247,12 @@ ul { list-style: none; }
 
 .review-stars svg {
     fill: #FFFFFF;
+    color: #FFFFFF;
 }
 
 .review-quote {
-    fill: rgba(255,255,255,0.2);
+    fill: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.3);
 }
 
 .review-text {
