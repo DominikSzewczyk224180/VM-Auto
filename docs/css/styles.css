@@ -427,7 +427,7 @@ ul { list-style: none; }
 
 .hero-gradient {
     position: absolute; inset: 0;
-    background: linear-gradient(160deg, #000 0%, #080C10 25%, #0D1520 55%, #080C10 100%);
+    background: linear-gradient(160deg, #020810 0%, #0A1628 25%, #122240 55%, #0A1525 85%, #050C18 100%);
 }
 
 .hero-glow {
@@ -447,14 +447,14 @@ ul { list-style: none; }
     100% { transform: translate(30px,-20px) scale(1.1); }
 }
 
-.hero-bg-sil { position: absolute; pointer-events: none; filter: brightness(5); }
+.hero-bg-sil { position: absolute; pointer-events: none; }
 .hero-bg-sil--1 {
-    bottom: 15%; left: 50%; transform: translateX(-50%);
-    width: 85%; max-width: 1200px; opacity: 0.04;
+    bottom: 12%; left: 50%; transform: translateX(-50%);
+    width: 95%; max-width: 1400px; opacity: 0.06;
 }
 .hero-bg-sil--2 {
-    top: 42%; left: 48%; transform: translate(-50%,-50%);
-    width: 70%; max-width: 950px; opacity: 0.07;
+    top: 40%; left: 48%; transform: translate(-50%,-50%);
+    width: 80%; max-width: 1100px; opacity: 0.09;
 }
 
 .hero .container { position: relative; z-index: 2; flex: 1; display: flex; align-items: center; }
@@ -463,7 +463,7 @@ ul { list-style: none; }
 
 /* Brand */
 .hero-brand { display: inline-flex; align-items: center; gap: 18px; margin-bottom: 44px; }
-.hero-brand-icon { height: 56px; width: auto; opacity: 0.4; filter: brightness(5); }
+.hero-brand-icon { height: 56px; width: auto; opacity: 0.55; }
 .hero-brand-text { display: flex; align-items: baseline; gap: 14px; }
 .hero-brand-vm {
     font-family: 'Outfit', sans-serif; font-size: 4.5rem; font-weight: 900;
@@ -480,7 +480,8 @@ ul { list-style: none; }
     font-family: 'Outfit', sans-serif;
     font-size: clamp(3.8rem, 9vw, 7.5rem);
     font-weight: 800; color: #FFF;
-    letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 16px;
+    letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 16px;
+    overflow: visible;
 }
 .hero-title-accent {
     font-style: italic; font-weight: 300;
