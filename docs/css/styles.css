@@ -864,8 +864,8 @@ ul { list-style: none; }
 /* Owner block */
 .about-owner-block {
     display: grid;
-    grid-template-columns: 450px 1fr;
-    gap: 48px;
+    grid-template-columns: 500px 1fr;
+    gap: 40px;
     align-items: end;
 }
 
@@ -882,24 +882,15 @@ ul { list-style: none; }
     position: relative;
     z-index: 2;
     width: 100%;
-    max-height: 650px;
+    max-height: 720px;
     object-fit: contain;
     object-position: bottom;
     display: block;
     filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5));
-    margin-bottom: -80px;
+    margin-bottom: -120px;
 }
 
-/* Slide-in from left — JS controlled for scroll-based animation */
-.owner-photo-frame {
-    transform: translateX(-300px);
-    opacity: 0;
-    transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
-}
-.owner-photo-frame.slide-visible {
-    transform: translateX(0);
-    opacity: 1;
-}
+/* Animation controlled by JS — no CSS transition, JS sets transform directly */
 
 .owner-photo-glow {
     position: absolute;
@@ -1530,7 +1521,6 @@ ul { list-style: none; }
         grid-template-columns: 1fr;
         gap: 32px;
         text-align: center;
-        min-height: auto;
     }
 
     .about-owner-visual {
@@ -1538,7 +1528,7 @@ ul { list-style: none; }
         justify-content: center;
     }
 
-    .owner-photo-frame { max-width: 320px; }
+    .owner-photo-frame { max-width: 340px; }
     .owner-photo { margin-bottom: 0; max-height: 500px; }
 
     .about-owner-text .section-title { text-align: center; }

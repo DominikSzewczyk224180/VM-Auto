@@ -181,21 +181,49 @@ document.querySelectorAll('.btn').forEach(btn => {
     });
 });
 
-// --- Owner photo slide-in from left on scroll ---
+// --- Owner photo scroll-synced slide from left ---
 (function() {
     const ownerFrame = document.querySelector('.owner-photo-frame');
-    if (!ownerFrame) return;
+    const ownerSection = document.querySelector('.owner-section');
+    if (!ownerFrame || !ownerSection) return;
     
-    const ownerObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                ownerFrame.classList.add('slide-visible');
-                ownerObserver.disconnect();
-            }
-        });
-    }, { threshold: 0.15 });
+    // Set initial state — fully off-screen left
+    ownerFrame.style.transform = 'translateX(-110%)';
+    ownerFrame.style.opacity = '0';
+    ownerFrame.style.willChange = 'transform, opacity';
     
-    ownerObserver.observe(ownerFrame);
+    function updateOwnerSlide() {
+        const rect = ownerSection.getBoundingClientRect();
+        const windowH = window.innerHeight;
+        
+        // Start when section bottom edge appears at viewport bottom
+        // End when section bottom edge reaches middle of viewport
+        const sectionBottom = rect.bottom;
+        const sectionTop = rect.top;
+        
+        // Progress: 0 = section just appeared at bottom, 1 = section top at viewport center
+        const startPoint = windowH; // section top hits bottom of screen
+        const endPoint = windowH * 0.3; // section top at 30% from top
+        
+        let progress = (startPoint - sectionTop) / (startPoint - endPoint);
+        progress = Math.max(0, Math.min(1, progress));
+        
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        
+        // Translate from -110% to 0
+        const translateX = -110 * (1 - eased);
+        ownerFrame.style.transform = `translateX(${translateX}%)`;
+        ownerFrame.style.opacity = eased;
+    }
+    
+    // Run on every scroll frame
+    window.addEventListener('scroll', function() {
+        requestAnimationFrame(updateOwnerSlide);
+    }, { passive: true });
+    
+    // Initial call
+    updateOwnerSlide();
 })();
 
 // --- Carousel ---
