@@ -181,6 +181,23 @@ document.querySelectorAll('.btn').forEach(btn => {
     });
 });
 
+// --- Owner photo slide-in from left on scroll ---
+(function() {
+    const ownerFrame = document.querySelector('.owner-photo-frame');
+    if (!ownerFrame) return;
+    
+    const ownerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                ownerFrame.classList.add('slide-visible');
+                ownerObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.15 });
+    
+    ownerObserver.observe(ownerFrame);
+})();
+
 // --- Carousel ---
 document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('aboutCarousel');
