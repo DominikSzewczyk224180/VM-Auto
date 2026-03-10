@@ -850,42 +850,25 @@ ul { list-style: none; }
 }
 
 /* ============================================
-   ABOUT SECTION — Owner Showcase
+   OWNER SECTION (full navy background)
    ============================================ */
-.about-section {
-    background: var(--bg-primary);
+.owner-section {
+    background: linear-gradient(170deg, #061020 0%, #0E1E38 50%, #0A1628 100%);
     overflow: hidden;
     position: relative;
 }
 
-.about-bg-accent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 75%;
-    background: linear-gradient(170deg, #061020 0%, #0E1E38 50%, #0A1628 100%);
-    z-index: 0;
-}
-
-.about-section .container {
-    position: relative;
-    z-index: 1;
-}
-
-/* Owner block — the main showcase */
+/* Owner block */
 .about-owner-block {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 64px;
     align-items: end;
-    padding-bottom: 0;
 }
 
 .about-owner-visual {
     position: relative;
     align-self: end;
-    margin-bottom: -1px;
 }
 
 .owner-photo-frame {
@@ -902,13 +885,13 @@ ul { list-style: none; }
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
 }
 
-/* Owner slide-in animation from right */
-[data-animate="slide-in-right"] {
+/* Slide-in from left animation */
+[data-animate="slide-in-left"] {
     opacity: 0;
-    transform: translateX(120px);
-    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+    transform: translateX(-150px);
+    transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
 }
-[data-animate="slide-in-right"].animated {
+[data-animate="slide-in-left"].animated {
     opacity: 1;
     transform: translateX(0);
 }
@@ -1011,6 +994,13 @@ ul { list-style: none; }
     color: rgba(255,255,255,0.45);
 }
 
+/* ============================================
+   ABOUT INFO SECTION (white background)
+   ============================================ */
+.about-info-section {
+    background: var(--bg-primary);
+}
+
 /* Bottom row: info + carousel */
 .about-bottom-row {
     display: grid;
@@ -1020,11 +1010,10 @@ ul { list-style: none; }
 }
 
 .about-info-card {
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
     border: 1px solid var(--silver-200);
     border-radius: var(--radius-xl);
     padding: 40px;
-    box-shadow: var(--shadow-lg);
 }
 
 .about-info-card h3 {
@@ -1629,9 +1618,8 @@ ul { list-style: none; }
     .trust-item { padding: 16px; }
 
     .owner-photo-frame { width: 220px; }
-    .about-bg-accent { height: 60%; }
-    .about-owner-block { padding-bottom: 40px; }
     .about-info-card { padding: 28px; }
+    .about-bottom-row { grid-template-columns: 1fr; }
 
     .cars-grid {
         grid-template-columns: 1fr;
