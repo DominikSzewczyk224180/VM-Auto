@@ -9,6 +9,7 @@ const API_URL = 'https://vm-auto-production.up.railway.app/api';
 document.addEventListener('DOMContentLoaded', function() {
     loadCarsForMainPage();
     loadCarsForCarousel();
+    buildMarquee();
 });
 
 // Load and display cars on main page
@@ -195,4 +196,58 @@ function formatPrice(price) {
 
 function formatNumber(num) {
     return new Intl.NumberFormat('pl-PL').format(num);
+}
+
+// Build car marquee in hero
+async function buildMarquee() {
+    const track = document.getElementById('marqueeTrack');
+    if (!track) return;
+    
+    let cars = [];
+    
+    // Try API first
+    try {
+        const resp = await fetch(`${API_URL}/cars`);
+        const result = await resp.json();
+        if (resp.ok && result.success && result.cars.length > 0) {
+            cars = result.cars.map(c => ({
+                title: c.brand + ' ' + c.model,
+                price: formatPrice(c.price) + ' PLN',
+                image: (c.images && c.images.length > 0) ? c.images[0] : null,
+                link: c.autoplac_link || '#cars'
+            }));
+        }
+    } catch(e) {}
+    
+    // Fallback to JSON
+    if (cars.length === 0) {
+        try {
+            const resp = await fetch('cars.json');
+            const data = await resp.json();
+            cars = data.map(c => ({
+                title: c.title,
+                price: c.price,
+                image: c.image,
+                link: c.link || '#cars'
+            }));
+        } catch(e) {}
+    }
+    
+    if (cars.length === 0) {
+        track.closest('.hero-marquee').style.display = 'none';
+        return;
+    }
+    
+    // Duplicate to fill marquee (need at least enough for seamless loop)
+    const items = [...cars, ...cars, ...cars, ...cars];
+    
+    track.innerHTML = items.map(car => `
+        <a href="${car.link}" target="_blank" rel="noopener" class="marquee-card">
+            ${car.image ? `<img src="${car.image}" alt="${car.title}" loading="lazy">` : ''}
+            <div class="marquee-card-info">
+                <div class="marquee-card-title">${car.title}</div>
+                <div class="marquee-card-price">${car.price}</div>
+            </div>
+        </a>
+    `).join('');
 }
