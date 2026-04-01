@@ -348,17 +348,19 @@ async function buildMarquee() {
     if (!container) return;
     
     let cars = [];
+    let fromAPI = false;
     
     // Try API first
     try {
         const resp = await fetch(`${API_URL}/cars`);
         const result = await resp.json();
         if (resp.ok && result.success && result.cars.length > 0) {
-            cars = result.cars.map(c => ({
+            fromAPI = true;
+            cars = result.cars.map((c, i) => ({
                 title: c.brand + ' ' + c.model,
                 price: formatPrice(c.price) + ' PLN',
                 image: (c.images && c.images.length > 0) ? c.images[0] : null,
-                link: c.autoplac_link || '#cars'
+                idx: i
             }));
         }
     } catch(e) {}
@@ -368,11 +370,12 @@ async function buildMarquee() {
         try {
             const resp = await fetch('cars.json');
             const data = await resp.json();
-            cars = data.map(c => ({
+            cars = data.map((c, i) => ({
                 title: c.title,
                 price: c.price,
                 image: c.image,
-                link: c.link || '#cars'
+                link: c.link,
+                idx: i
             }));
         } catch(e) {}
     }
@@ -382,16 +385,16 @@ async function buildMarquee() {
         return;
     }
     
-    // Duplicate enough for seamless vertical loop
+    // Duplicate for seamless loop
     const items = [...cars, ...cars, ...cars, ...cars, ...cars];
     
     container.innerHTML = items.map(car => `
-        <a href="${car.link}" target="_blank" rel="noopener" class="scroll-car-card">
+        <div class="scroll-car-card" onclick="${fromAPI ? `openCarModal(${car.idx})` : (car.link ? `window.open('${car.link}','_blank')` : `document.getElementById('cars').scrollIntoView({behavior:'smooth'})`)}">
             ${car.image ? `<img src="${car.image}" alt="${car.title}" loading="lazy">` : ''}
             <div class="scroll-car-info">
                 <div class="scroll-car-title">${car.title}</div>
                 <div class="scroll-car-price">${car.price}</div>
             </div>
-        </a>
+        </div>
     `).join('');
 }
