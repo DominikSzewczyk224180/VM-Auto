@@ -34,7 +34,7 @@
             <div class="admin-header-content">
                 <div>
                     <h1>VM Auto - Panel Administracyjny</h1>
-                    <p>Zarządzaj swoimi samochodami</p>
+                    <p>Zarządzaj swoimi pojazdami</p>
                 </div>
                 <a href="index.html" class="btn-back-home">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -48,14 +48,14 @@
 
         <!-- Navigation Tabs -->
         <div class="tabs">
-            <button class="tab-btn active" data-tab="add-car">Dodaj Auto</button>
-            <button class="tab-btn" data-tab="car-list">Lista Aut</button>
+            <button class="tab-btn active" data-tab="add-car">Dodaj Pojazd</button>
+            <button class="tab-btn" data-tab="car-list">Lista Pojazdów</button>
         </div>
 
         <!-- Add Car Form -->
         <div id="add-car" class="tab-content active">
             <div class="form-container">
-                <h2>Dodaj Nowy Samochód</h2>
+                <h2>Dodaj Nowy Pojazd</h2>
                 <form id="addCarForm">
                     <div class="form-row">
                         <div class="form-group">
@@ -174,12 +174,12 @@
                     </div>
 
                     <div class="form-group full-width">
-                        <label for="autoplac_link">Link do Autoplac (opcjonalnie)</label>
+                        <label for="autoplac_link">Link do ogłoszenia (opcjonalnie)</label>
                         <input type="url" id="autoplac_link" name="autoplac_link" placeholder="https://autoplac.pl/oferta/12345">
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Dodaj Samochód</button>
+                        <button type="submit" class="btn btn-primary">Dodaj Pojazd</button>
                         <button type="reset" class="btn btn-secondary">Wyczyść</button>
                     </div>
                 </form>
@@ -189,7 +189,7 @@
         <!-- Car List -->
         <div id="car-list" class="tab-content">
             <div class="list-header">
-                <h2>Lista Samochodów</h2>
+                <h2>Lista Pojazdów</h2>
                 <button class="btn btn-refresh" onclick="loadCars()">Odśwież</button>
             </div>
             
@@ -215,7 +215,7 @@
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Edytuj Samochód</h2>
+            <h2>Edytuj Pojazd</h2>
             <form id="editCarForm">
                 <input type="hidden" id="edit_car_id">
                 
@@ -255,6 +255,11 @@
                 <div class="form-group full-width">
                     <label for="edit_description">Opis</label>
                     <textarea id="edit_description" name="description" rows="4"></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="edit_autoplac_link">Link do ogłoszenia</label>
+                    <input type="url" id="edit_autoplac_link" name="autoplac_link" placeholder="https://otomoto.pl/oferta/...">
                 </div>
 
                 <!-- Image Edit Section -->

@@ -237,7 +237,7 @@ async function handleAddCar(e) {
         const result = await response.json();
 
         if (response.ok && result.success) {
-            showToast('Samochód został dodany pomyślnie!', 'success');
+            showToast('Pojazd został dodany pomyślnie!', 'success');
             e.target.reset();
             uploadedImages = []; // Clear uploaded images
             updateImagePreview();
@@ -362,6 +362,7 @@ function openEditModal(carId) {
     document.getElementById('edit_mileage').value = car.mileage || '';
     document.getElementById('edit_fuel_type').value = car.fuel_type || '';
     document.getElementById('edit_description').value = car.description || '';
+    document.getElementById('edit_autoplac_link').value = car.autoplac_link || '';
 
     // Load existing images
     editImages = car.images ? [...car.images] : [];
@@ -417,6 +418,7 @@ async function handleEditCar(e) {
         mileage: parseInt(formData.get('mileage')) || 0,
         fuel_type: formData.get('fuel_type'),
         description: formData.get('description'),
+        autoplac_link: formData.get('autoplac_link'),
         images: editImages
     };
 
@@ -434,7 +436,7 @@ async function handleEditCar(e) {
         const result = await response.json();
 
         if (response.ok && result.success) {
-            showToast('Samochód został zaktualizowany!', 'success');
+            showToast('Pojazd został zaktualizowany!', 'success');
             closeEditModal();
             loadCars();
         } else {
@@ -464,7 +466,7 @@ async function deleteCar(carId) {
         const result = await response.json();
 
         if (response.ok && result.success) {
-            showToast('Samochód został usunięty', 'success');
+            showToast('Pojazd został usunięty', 'success');
             loadCars();
         } else {
             showToast('Błąd podczas usuwania', 'error');

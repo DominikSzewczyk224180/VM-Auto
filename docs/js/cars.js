@@ -90,7 +90,7 @@ function displayCarsFromAPI(cars, container) {
                 <div class="car-price">${formatPrice(car.price)} PLN</div>
                 ${car.autoplac_link ? `
                     <a href="${car.autoplac_link}" target="_blank" rel="noopener noreferrer" class="car-link">
-                        Zobacz szczegóły
+                        Zobacz ogłoszenie
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
                 ` : `
@@ -150,7 +150,7 @@ function displayCarsFromJSON(cars, container) {
                 </div>
                 <div class="car-price">${car.price}</div>
                 <a href="${car.link}" target="_blank" rel="noopener noreferrer" class="car-link">
-                    Zobacz szczegóły
+                    Zobacz ogłoszenie
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
             </div>
