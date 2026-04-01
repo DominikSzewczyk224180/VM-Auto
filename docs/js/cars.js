@@ -43,8 +43,12 @@ async function loadCarsForMainPage() {
     }
 }
 
+// Global cars store for modal
+let allCarsData = [];
+
 // Display cars from API
 function displayCarsFromAPI(cars, container) {
+    allCarsData = cars;
     container.innerHTML = cars.map((car, ci) => `
         <div class="car-card" data-animate="fade-up">
             ${car.images && car.images.length > 0 ? `
@@ -53,10 +57,10 @@ function displayCarsFromAPI(cars, container) {
                         <img src="${img}" alt="${car.brand} ${car.model}" class="car-image ${ii === 0 ? 'active' : ''}" data-idx="${ii}" loading="lazy">
                     `).join('')}
                     ${car.images.length > 1 ? `
-                        <button class="car-gal-btn car-gal-prev" onclick="galNav(${ci},-1)" aria-label="Poprzednie">
+                        <button class="car-gal-btn car-gal-prev" onclick="event.stopPropagation();galNav(${ci},-1)" aria-label="Poprzednie">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
-                        <button class="car-gal-btn car-gal-next" onclick="galNav(${ci},1)" aria-label="Następne">
+                        <button class="car-gal-btn car-gal-next" onclick="event.stopPropagation();galNav(${ci},1)" aria-label="Następne">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
                         </button>
                         <div class="car-gal-dots">
@@ -88,17 +92,10 @@ function displayCarsFromAPI(cars, container) {
                     ` : ''}
                 </div>
                 <div class="car-price">${formatPrice(car.price)} PLN</div>
-                ${car.autoplac_link ? `
-                    <a href="${car.autoplac_link}" target="_blank" rel="noopener noreferrer" class="car-link">
-                        Zobacz ogłoszenie
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                ` : `
-                    <a href="tel:${car.contact_phone || '+48799939100'}" class="car-link">
-                        Zadzwoń
-                        <svg width="16" height="16" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
-                    </a>
-                `}
+                <button class="car-link" onclick="openCarModal(${ci})">
+                    Zobacz szczegóły
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
             </div>
         </div>
     `).join('');
@@ -119,6 +116,126 @@ function galNav(cardIdx, dir) {
     imgs[current].classList.add('active');
     if (dots[current]) dots[current].classList.add('active');
 }
+
+// ========== CAR DETAIL MODAL ==========
+let modalGalIndex = 0;
+let modalImages = [];
+
+function openCarModal(idx) {
+    const car = allCarsData[idx];
+    if (!car) return;
+    
+    const modal = document.getElementById('carModal');
+    const gallery = document.getElementById('carModalGallery');
+    const body = document.getElementById('carModalBody');
+    
+    // Gallery
+    modalImages = car.images || [];
+    modalGalIndex = 0;
+    
+    if (modalImages.length > 0) {
+        gallery.innerHTML = modalImages.map((img, i) => `
+            <img src="${img}" alt="${car.brand} ${car.model}" class="${i === 0 ? 'active' : ''}">
+        `).join('') + (modalImages.length > 1 ? `
+            <button class="modal-gal-btn modal-gal-prev" onclick="modalGalNav(-1)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="modal-gal-btn modal-gal-next" onclick="modalGalNav(1)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <div class="modal-gal-dots">
+                ${modalImages.map((_, i) => `<span class="modal-gal-dot ${i === 0 ? 'active' : ''}" onclick="modalGalTo(${i})"></span>`).join('')}
+            </div>
+        ` : '');
+        gallery.style.display = '';
+    } else {
+        gallery.style.display = 'none';
+    }
+    
+    // Build details
+    const details = [];
+    if (car.year) details.push(['Rok', car.year]);
+    if (car.mileage) details.push(['Przebieg', formatNumber(car.mileage) + ' km']);
+    if (car.fuel_type) details.push(['Paliwo', car.fuel_type]);
+    if (car.transmission) details.push(['Skrzynia', car.transmission]);
+    if (car.engine_capacity) details.push(['Silnik', car.engine_capacity + ' L']);
+    if (car.power) details.push(['Moc', car.power]);
+    if (car.body_type) details.push(['Nadwozie', car.body_type]);
+    if (car.color) details.push(['Kolor', car.color]);
+    if (car.vin) details.push(['VIN', car.vin]);
+    
+    body.innerHTML = `
+        <h2 class="cm-title">${car.brand} ${car.model}</h2>
+        <div class="cm-price">${formatPrice(car.price)} PLN</div>
+        ${details.length > 0 ? `
+            <div class="cm-details">
+                ${details.map(d => `
+                    <div class="cm-detail">
+                        <span class="cm-detail-label">${d[0]}</span>
+                        <span class="cm-detail-value">${d[1]}</span>
+                    </div>
+                `).join('')}
+            </div>
+        ` : ''}
+        ${car.description ? `<p class="cm-description">${car.description}</p>` : ''}
+        ${car.features && car.features.length > 0 ? `
+            <div class="cm-features">
+                ${car.features.map(f => `<span class="cm-feature-tag">${f}</span>`).join('')}
+            </div>
+        ` : ''}
+        <div class="cm-actions">
+            ${car.autoplac_link ? `
+                <a href="${car.autoplac_link}" target="_blank" rel="noopener" class="btn btn-primary">
+                    <span>Zobacz ogłoszenie</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                </a>
+            ` : ''}
+            <a href="tel:+48799939100" class="btn btn-glass" style="background:var(--silver-100);color:var(--text-primary);border:1px solid var(--silver-300);">
+                <svg width="18" height="18" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
+                <span>Zadzwoń</span>
+            </a>
+        </div>
+    `;
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCarModal() {
+    document.getElementById('carModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function modalGalNav(dir) {
+    const gallery = document.getElementById('carModalGallery');
+    const imgs = gallery.querySelectorAll('img');
+    const dots = gallery.querySelectorAll('.modal-gal-dot');
+    imgs[modalGalIndex].classList.remove('active');
+    if (dots[modalGalIndex]) dots[modalGalIndex].classList.remove('active');
+    modalGalIndex = (modalGalIndex + dir + modalImages.length) % modalImages.length;
+    imgs[modalGalIndex].classList.add('active');
+    if (dots[modalGalIndex]) dots[modalGalIndex].classList.add('active');
+}
+
+function modalGalTo(idx) {
+    const gallery = document.getElementById('carModalGallery');
+    const imgs = gallery.querySelectorAll('img');
+    const dots = gallery.querySelectorAll('.modal-gal-dot');
+    imgs[modalGalIndex].classList.remove('active');
+    if (dots[modalGalIndex]) dots[modalGalIndex].classList.remove('active');
+    modalGalIndex = idx;
+    imgs[modalGalIndex].classList.add('active');
+    if (dots[modalGalIndex]) dots[modalGalIndex].classList.add('active');
+}
+
+// Close modal events
+document.addEventListener('DOMContentLoaded', () => {
+    const closeBtn = document.getElementById('carModalClose');
+    const overlay = document.getElementById('carModal');
+    if (closeBtn) closeBtn.addEventListener('click', closeCarModal);
+    if (overlay) overlay.addEventListener('click', e => { if (e.target === overlay) closeCarModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCarModal(); });
+});
 
 // Display cars from local JSON
 function displayCarsFromJSON(cars, container) {
