@@ -1,5 +1,6 @@
 // API Configuration - ZMIEŃ NA SWÓJ URL Z RAILWAY!
-const API_URL = 'https://vm-auto-production.up.railway.app/api';
+// const API_URL = 'https://vm-auto-production.up.railway.app/api';
+const API_URL = 'https://vmauto.pl/backend/api';
 
 // Cloudinary Configuration
 const CLOUDINARY_CLOUD_NAME = 'dvnq5pxkg';

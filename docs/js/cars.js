@@ -3,7 +3,8 @@
 // ============================================
 
 // API Configuration
-const API_URL = 'https://vm-auto-production.up.railway.app/api';
+// const API_URL = 'https://vm-auto-production.up.railway.app/api';
+const API_URL = 'https://vmauto.pl/backend/api';
 
 // Load cars when page loads
 document.addEventListener('DOMContentLoaded', function() {
