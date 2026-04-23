@@ -321,17 +321,49 @@ async function loadCarsForCarousel() {
 
 function reinitCarouselDots() {
     const track = document.getElementById('aboutCarousel');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
     const dotsContainer = document.getElementById('carouselDots');
     if (!track || !dotsContainer) return;
     
     const images = track.querySelectorAll('.carousel-image');
-    dotsContainer.innerHTML = '';
+    let currentIndex = 0;
+    const total = images.length;
     
-    images.forEach((_, i) => {
+    // Rebuild dots with click handlers
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < total; i++) {
         const dot = document.createElement('div');
         dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
         dotsContainer.appendChild(dot);
-    });
+    }
+    
+    function update() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === currentIndex);
+        });
+    }
+    
+    function goTo(i) { currentIndex = i; update(); resetAuto(); }
+    function next() { currentIndex = (currentIndex + 1) % total; update(); }
+    function prev() { currentIndex = (currentIndex - 1 + total) % total; update(); }
+    
+    let autoInterval;
+    function resetAuto() { clearInterval(autoInterval); autoInterval = setInterval(next, 5000); }
+    
+    // Replace buttons to remove old listeners
+    if (prevBtn && nextBtn) {
+        const newPrev = prevBtn.cloneNode(true);
+        const newNext = nextBtn.cloneNode(true);
+        prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+        nextBtn.parentNode.replaceChild(newNext, nextBtn);
+        newPrev.addEventListener('click', () => { prev(); resetAuto(); });
+        newNext.addEventListener('click', () => { next(); resetAuto(); });
+    }
+    
+    resetAuto();
 }
 
 // Utilities
