@@ -1,6 +1,5 @@
 // API Configuration - ZMIEŃ NA SWÓJ URL Z RAILWAY!
-// const API_URL = 'https://vm-auto-production.up.railway.app/api';
-const API_URL = 'https://api.vmauto.pl/api';
+const API_URL = 'https://vm-auto-production.up.railway.app/api';
 
 // Cloudinary Configuration
 const CLOUDINARY_CLOUD_NAME = 'dvnq5pxkg';
@@ -215,7 +214,7 @@ async function handleAddCar(e) {
         transmission: formData.get('transmission'),
         engine_capacity: formData.get('engine_capacity'),
         power: formData.get('power'),
-        body_type: formData.get('body_type'),
+        body_type: formData.get('body_type') === '__other__' ? formData.get('body_type_other') : formData.get('body_type'),
         color: formData.get('color'),
         vin: formData.get('vin'),
         description: formData.get('description'),
@@ -505,4 +504,19 @@ function showToast(message, type = 'success') {
     setTimeout(() => {
         toast.classList.remove('show');
     }, 3000);
+}
+
+// Toggle "Inne" custom input for body type
+function toggleBodyTypeOther(select) {
+    const otherInput = document.getElementById('body_type_other');
+    if (!otherInput) return;
+    if (select.value === '__other__') {
+        otherInput.style.display = 'block';
+        otherInput.required = true;
+        otherInput.focus();
+    } else {
+        otherInput.style.display = 'none';
+        otherInput.required = false;
+        otherInput.value = '';
+    }
 }

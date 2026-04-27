@@ -132,7 +132,7 @@
                         </div>
                         <div class="form-group">
                             <label for="body_type">Typ nadwozia</label>
-                            <select id="body_type" name="body_type">
+                            <select id="body_type" name="body_type" onchange="toggleBodyTypeOther(this)">
                                 <option value="">Wybierz...</option>
                                 <option value="Sedan">Sedan</option>
                                 <option value="Hatchback">Hatchback</option>
@@ -142,7 +142,12 @@
                                 <option value="Cabrio">Cabrio</option>
                                 <option value="Van">Van</option>
                                 <option value="Kamper">Kamper</option>
+                                <option value="Dostawczy">Dostawczy</option>
+                                <option value="Specjalny">Specjalny</option>
+                                <option value="Przyczepa">Przyczepa</option>
+                                <option value="__other__">Inne (wpisz)</option>
                             </select>
+                            <input type="text" id="body_type_other" name="body_type_other" placeholder="Wpisz typ nadwozia" style="display:none; margin-top:8px;">
                         </div>
                     </div>
 
