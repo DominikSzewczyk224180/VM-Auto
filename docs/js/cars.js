@@ -430,4 +430,9 @@ async function buildMarquee() {
             </div>
         </div>
     `).join('');
+    
+    // Set animation duration proportional to number of cars
+    // Constant speed: ~7 seconds per car
+    const duration = cars.length * 7;
+    container.style.animationDuration = duration + 's';
 }
